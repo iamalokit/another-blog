@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iamalokit.anotherblog.entity.AdminUser;
 import com.iamalokit.anotherblog.service.AdminUserService;
+import com.iamalokit.anotherblog.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
 	@Resource
 	private AdminUserService adminUserService;
+	
+	@Resource
+	private CategoryService categoryService;
 
 	@GetMapping({ "/login" })
 	public String login() {
@@ -53,20 +58,20 @@ public class AdminController {
 		}
 	}
 
-//	@GetMapping({ "", "/", "/index", "/index.html" })
-//	public String index(HttpServletRequest request) {
-//		request.setAttribute("path", "index");
-//		request.setAttribute("categoryCount", categoryService.getTotalCategories());
+	@GetMapping({ "", "/", "/index", "/index.html" })
+	public String index(HttpServletRequest request) {
+		request.setAttribute("path", "index");
+		request.setAttribute("categoryCount", categoryService.getTotalCategories());
 //		request.setAttribute("blogCount", blogService.getTotalBlogs());
 //		request.setAttribute("linkCount", linkService.getTotalLinks());
 //		request.setAttribute("tagCount", tagService.getTotalTags());
 //		request.setAttribute("commentCount", commentService.getTotalComments());
-//		return "admin/index";
-//	}
+		return "admin/index";
+	}
 
 	@GetMapping("/profile")
 	public String profile(HttpServletRequest request) {
-		Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+		Long loginUserId = (Long) request.getSession().getAttribute("loginUserId");
 		AdminUser adminUser = adminUserService.getUserDetailById(loginUserId);
 		if (adminUser == null) {
 			return "admin/login";
@@ -84,7 +89,7 @@ public class AdminController {
 		if (!StringUtils.hasLength(loginUserName) || !StringUtils.hasLength(nickName)) {
 			return "Nick name or Login Username is empty or null";
 		}
-		Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+		Long loginUserId = (Long) request.getSession().getAttribute("loginUserId");
 		if (adminUserService.updateName(loginUserId, loginUserName, nickName)) {
 			return "success";
 		} else {

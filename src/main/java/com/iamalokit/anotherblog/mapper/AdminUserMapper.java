@@ -6,25 +6,29 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AdminUserMapper {
-    long countByExample(AdminUserExample example);
+	
+	long countByExample(AdminUserExample example);
 
-    int deleteByExample(AdminUserExample example);
+	int deleteByExample(AdminUserExample example);
 
-    int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(Long id);
 
-    int insert(AdminUser record);
+	int insert(AdminUser record);
 
-    int insertSelective(AdminUser record);
+	int insertSelective(AdminUser record);
 
-    List<AdminUser> selectByExample(AdminUserExample example);
+	List<AdminUser> selectByExample(AdminUserExample example);
 
-    AdminUser selectByPrimaryKey(Long id);
+	AdminUser selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") AdminUser record, @Param("example") AdminUserExample example);
+	int updateByExampleSelective(@Param("record") AdminUser record, @Param("example") AdminUserExample example);
 
-    int updateByExample(@Param("record") AdminUser record, @Param("example") AdminUserExample example);
+	int updateByExample(@Param("record") AdminUser record, @Param("example") AdminUserExample example);
 
-    int updateByPrimaryKeySelective(AdminUser record);
+	int updateByPrimaryKeySelective(AdminUser record);
 
-    int updateByPrimaryKey(AdminUser record);
+	int updateByPrimaryKey(AdminUser record);
+
+	AdminUser login(@Param("userName") String userName, @Param("password") String password);
+	
 }

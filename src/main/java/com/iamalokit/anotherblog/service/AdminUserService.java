@@ -6,10 +6,10 @@ public interface AdminUserService {
 	
 	AdminUser login(String userName, String password);
 	
-	AdminUser getUserDetailById(Integer loginUserId);
+	AdminUser getUserDetailById(Long loginUserId);
 	
-	Boolean updatePassword(Integer loginUserId, String originalPassword, String newPassword);
+	Boolean updatePassword(Long loginUserId, String originalPassword, String newPassword);
 	
-	Boolean updateName(Integer loginUserId, String loginUserName, String nickName);
+	Boolean updateName(Long loginUserId, String loginUserName, String nickName);
 	
 }
