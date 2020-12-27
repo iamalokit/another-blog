@@ -3,6 +3,7 @@ package com.iamalokit.anotherblog.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.iamalokit.anotherblog.dao.BlogCategoryDao;
 import com.iamalokit.anotherblog.dao.BlogDao;
@@ -13,6 +14,7 @@ import com.iamalokit.anotherblog.service.CategoryService;
 import com.iamalokit.anotherblog.util.PageQueryUtil;
 import com.iamalokit.anotherblog.util.PageResult;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired

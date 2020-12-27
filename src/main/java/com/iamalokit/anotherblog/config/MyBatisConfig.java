@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.iamalokit.anotherblog.mapper")
+@MapperScan({"com.iamalokit.anotherblog.mapper", "com.iamalokit.anotherblog.dao"})
 public class MyBatisConfig {
 
 }
