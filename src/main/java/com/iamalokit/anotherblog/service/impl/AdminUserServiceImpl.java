@@ -1,10 +1,13 @@
 package com.iamalokit.anotherblog.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.iamalokit.anotherblog.entity.AdminUser;
+import com.iamalokit.anotherblog.entity.AdminUserExample;
 import com.iamalokit.anotherblog.mapper.AdminUserMapper;
 import com.iamalokit.anotherblog.service.AdminUserService;
 import com.iamalokit.anotherblog.util.MD5Util;
@@ -18,7 +21,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	public AdminUser login(String userName, String password) {
 		String passwordMD5 = MD5Util.MD5Encode(password, "UTF-8");
-		return adminUserMapper.login(userName, passwordMD5);
+		AdminUserExample adminUserExample = new AdminUserExample();
+		adminUserExample.createCriteria().andLoginUserNameEqualTo(userName).andLoginPasswordEqualTo(passwordMD5);
+		List<AdminUser> adminList = adminUserMapper.selectByExample(adminUserExample);
+		return adminList.get(0);
+		
 	}
 
 	@Override
