@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.iamalokit.anotherblog.service.BlogService;
 import com.iamalokit.anotherblog.service.CategoryService;
+import com.iamalokit.anotherblog.service.ConfigService;
 import com.iamalokit.anotherblog.util.PageResult;
 
 @Controller
@@ -23,8 +24,8 @@ public class BlogController {
 //	private LinkService linkService;
 //	@Resource
 //	private CommentService commentService;
-//	@Resource
-//	private ConfigService configService;
+	@Resource
+	private ConfigService configService;
 	@Resource
 	private CategoryService categoryService;
 
@@ -44,7 +45,7 @@ public class BlogController {
 		request.setAttribute("hotBlogs", blogService.getBlogListForIndexPage(0));
 //		request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
 //		request.setAttribute("pageName", "首页");
-//		request.setAttribute("configurations", configService.getAllConfigs());
+		request.setAttribute("configurations", configService.getAllConfigs());
 		return "blog/" + theme + "/index";
 	}
 }

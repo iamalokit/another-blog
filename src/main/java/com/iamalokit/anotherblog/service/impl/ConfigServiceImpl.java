@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.iamalokit.anotherblog.entity.BlogConfig;
 import com.iamalokit.anotherblog.entity.BlogConfigExample;
@@ -13,6 +14,7 @@ import com.iamalokit.anotherblog.mapper.BlogConfigMapper;
 import com.iamalokit.anotherblog.service.ConfigService;
 import com.iamalokit.anotherblog.util.BlogStringUtil;
 
+@Service
 public class ConfigServiceImpl implements ConfigService {
 	@Autowired
 	private BlogConfigMapper configMapper;
