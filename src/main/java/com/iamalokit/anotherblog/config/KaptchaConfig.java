@@ -2,6 +2,7 @@ package com.iamalokit.anotherblog.config;
 
 import java.util.Properties;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -10,6 +11,7 @@ import com.google.code.kaptcha.util.Config;
 @Component
 public class KaptchaConfig {
 	
+	@Bean
 	public DefaultKaptcha getDefaultKaptcha() {
 		DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
 		Properties properties = new Properties();
