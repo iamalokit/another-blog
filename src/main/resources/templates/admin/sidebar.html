@@ -37,16 +37,16 @@
                     <a th:href="@{/admin/blogs/edit}" th:class="${path}=='edit'?'nav-link active':'nav-link'">
                         <i class="nav-icon fa fa fa-pencil-square-o"></i>
                         <p>
-                            发布博客
+                            Post a Blog
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">管理模块</li>
+                <li class="nav-header">Manage</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/blogs}" th:class="${path}=='blogs'?'nav-link active':'nav-link'">
                         <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
                         <p>
-                            博客管理
+                            Articles
                         </p>
                     </a>
                 </li>
@@ -54,7 +54,7 @@
                     <a th:href="@{/admin/comments}" th:class="${path}=='comments'?'nav-link active':'nav-link'">
                         <i class="fa fa-comments nav-icon" aria-hidden="true"></i>
                         <p>
-                            评论管理
+                            Comments
                         </p>
                     </a>
                 </li>
@@ -62,7 +62,7 @@
                     <a th:href="@{/admin/categories}" th:class="${path}=='categories'?'nav-link active':'nav-link'">
                         <i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
                         <p>
-                            分类管理
+                            Categories
                         </p>
                     </a>
                 </li>
@@ -70,7 +70,7 @@
                     <a th:href="@{/admin/tags}" th:class="${path}=='tags'?'nav-link active':'nav-link'">
                         <i class="fa fa-tags nav-icon" aria-hidden="true"></i>
                         <p>
-                            标签管理
+                            Tags
                         </p>
                     </a>
                 </li>
@@ -78,29 +78,29 @@
                     <a th:href="@{/admin/links}" th:class="${path}=='links'?'nav-link active':'nav-link'">
                         <i class="fa fa-heart nav-icon" aria-hidden="true"></i>
                         <p>
-                            友情链接
+                            Links
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">系统管理</li>
+                <li class="nav-header">System Management</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/configurations}"
                        th:class="${path}=='configurations'?'nav-link active':'nav-link'">
                         <i class="fa fa-wrench nav-icon"></i>
-                        <p>系统配置</p>
+                        <p>Configurations</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/profile}"
                        th:class="${path}=='profile'?'nav-link active':'nav-link'">
                         <i class="fa fa-user-secret nav-icon"></i>
-                        <p>修改密码</p>
+                        <p>Profile</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/logout}" class="nav-link">
                         <i class="fa fa-sign-out nav-icon"></i>
-                        <p>安全退出</p>
+                        <p>Logout</p>
                     </a>
                 </li>
             </ul>

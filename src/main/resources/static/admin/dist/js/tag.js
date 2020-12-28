@@ -4,8 +4,8 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'tagId', index: 'tagId', width: 50, key: true, hidden: true},
-            {label: '标签名称', name: 'tagName', index: 'tagName', width: 240},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 120}
+            {label: 'Name', name: 'tagName', index: 'tagName', width: 240},
+            {label: 'Create Time', name: 'createTime', index: 'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,

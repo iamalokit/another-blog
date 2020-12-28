@@ -4,9 +4,9 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'categoryId', index: 'categoryId', width: 50, key: true, hidden: true},
-            {label: '分类名称', name: 'categoryName', index: 'categoryName', width: 240},
-            {label: '分类图标', name: 'categoryIcon', index: 'categoryIcon', width: 120, formatter: imgFormatter},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 120}
+            {label: 'Name', name: 'categoryName', index: 'categoryName', width: 240},
+            {label: 'Icon', name: 'categoryIcon', index: 'categoryIcon', width: 120, formatter: imgFormatter},
+            {label: 'Create Time', name: 'createTime', index: 'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,
@@ -30,7 +30,6 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -59,9 +58,6 @@ function imgFormatter(cellvalue) {
     return "<a href='" + cellvalue + "'> <img src='" + cellvalue + "' height=\"64\" width=\"64\" alt='icon'/></a>";
 }
 
-/**
- * jqGrid重新加载
- */
 function reload() {
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
     $("#jqGrid").jqGrid('setGridParam', {
@@ -75,7 +71,6 @@ function categoryAdd() {
     $('#categoryModal').modal('show');
 }
 
-//绑定modal上的保存按钮
 $('#saveButton').click(function () {
     var categoryName = $("#categoryName").val();
     if (!validCN_ENString2_18(categoryName)) {
@@ -89,7 +84,7 @@ $('#saveButton').click(function () {
             url = '/admin/categories/update';
         }
         $.ajax({
-            type: 'POST',//方法类型
+            type: 'POST',
             url: url,
             data: params,
             success: function (result) {

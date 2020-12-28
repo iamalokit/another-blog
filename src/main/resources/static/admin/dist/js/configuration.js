@@ -1,8 +1,6 @@
 $(function () {
-    //修改站点信息
     $('#updateWebsiteButton').click(function () {
         $("#updateWebsiteButton").attr("disabled", true);
-        //ajax提交数据
         var params = $("#websiteForm").serialize();
         $.ajax({
             type: "POST",
@@ -28,7 +26,7 @@ $(function () {
             }
         });
     });
-    //个人信息
+
     $('#updateUserInfoButton').click(function () {
         $("#updateUserInfoButton").attr("disabled", true);
         var params = $("#userInfoForm").serialize();
@@ -56,7 +54,7 @@ $(function () {
             }
         });
     });
-    //修改底部设置
+
     $('#updateFooterButton').click(function () {
         $("#updateFooterButton").attr("disabled", true);
         var params = $("#footerForm").serialize();

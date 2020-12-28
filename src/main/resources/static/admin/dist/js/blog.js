@@ -4,12 +4,12 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'blogId', index: 'blogId', width: 50, key: true, hidden: true},
-            {label: '标题', name: 'blogTitle', index: 'blogTitle', width: 140},
-            {label: '预览图', name: 'blogCoverImage', index: 'blogCoverImage', width: 120, formatter: coverImageFormatter},
-            {label: '浏览量', name: 'blogViews', index: 'blogViews', width: 60},
-            {label: '状态', name: 'blogStatus', index: 'blogStatus', width: 60, formatter: statusFormatter},
-            {label: '博客分类', name: 'blogCategoryName', index: 'blogCategoryName', width: 60},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 90}
+            {label: 'Title', name: 'blogTitle', index: 'blogTitle', width: 140},
+            {label: 'Cover Image', name: 'blogCoverImage', index: 'blogCoverImage', width: 120, formatter: coverImageFormatter},
+            {label: 'Views', name: 'blogViews', index: 'blogViews', width: 60},
+            {label: 'Status', name: 'blogStatus', index: 'blogStatus', width: 60, formatter: statusFormatter},
+            {label: 'Category Name', name: 'blogCategoryName', index: 'blogCategoryName', width: 60},
+            {label: 'Create Time', name: 'createTime', index: 'createTime', width: 90}
         ],
         height: 700,
         rowNum: 10,
@@ -33,7 +33,6 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -57,11 +56,8 @@ $(function () {
 
 });
 
-/**
- * 搜索功能
- */
+
 function search() {
-    //标题关键字
     var keyword = $('#keyword').val();
     if (!validLength(keyword, 20)) {
         swal("搜索字段长度过大!", {
@@ -69,19 +65,15 @@ function search() {
         });
         return false;
     }
-    //数据封装
     var searchData = {keyword: keyword};
-    //传入查询条件参数
+
     $("#jqGrid").jqGrid("setGridParam", {postData: searchData});
-    //点击搜索按钮默认都从第一页开始
+
     $("#jqGrid").jqGrid("setGridParam", {page: 1});
-    //提交post并刷新表格
     $("#jqGrid").jqGrid("setGridParam", {url: '/admin/blogs/list'}).trigger("reloadGrid");
 }
 
-/**
- * jqGrid重新加载
- */
+
 function reload() {
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
     $("#jqGrid").jqGrid('setGridParam', {

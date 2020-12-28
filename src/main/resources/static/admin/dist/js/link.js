@@ -4,11 +4,11 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'linkId', index: 'linkId', width: 50, key: true, hidden: true},
-            {label: '网站名称', name: 'linkName', index: 'linkName', width: 100},
-            {label: '网站链接', name: 'linkUrl', index: 'linkUrl', width: 120},
-            {label: '网站描述', name: 'linkDescription', index: 'linkDescription', width: 120},
-            {label: '排序值', name: 'linkRank', index: 'linkRank', width: 30},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 100}
+            {label: 'Name', name: 'linkName', index: 'linkName', width: 100},
+            {label: 'URL', name: 'linkUrl', index: 'linkUrl', width: 120},
+            {label: 'Description', name: 'linkDescription', index: 'linkDescription', width: 120},
+            {label: 'Rank', name: 'linkRank', index: 'linkRank', width: 30},
+            {label: 'Create Time', name: 'createTime', index: 'createTime', width: 100}
         ],
         height: 560,
         rowNum: 10,
@@ -32,7 +32,6 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -41,9 +40,7 @@ $(function () {
     });
 });
 
-/**
- * jqGrid重新加载
- */
+
 function reload() {
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
     $("#jqGrid").jqGrid('setGridParam', {
@@ -57,7 +54,6 @@ function linkAdd() {
     $('#linkModal').modal('show');
 }
 
-//绑定modal上的保存按钮
 $('#saveButton').click(function () {
     var linkId = $("#linkId").val();
     var linkName = $("#linkName").val();
@@ -90,7 +86,7 @@ $('#saveButton').click(function () {
         url = '/admin/links/update';
     }
     $.ajax({
-        type: 'POST',//方法类型
+        type: 'POST',
         url: url,
         data: params,
         success: function (result) {
@@ -124,15 +120,12 @@ function linkEdit() {
         return;
     }
     reset();
-    //请求数据
     $.get("/admin/links/info/" + id, function (r) {
         if (r.resultCode == 200 && r.data != null) {
-            //填充数据至modal
             $("#linkName").val(r.data.linkName);
             $("#linkUrl").val(r.data.linkUrl);
             $("#linkDescription").val(r.data.linkDescription);
             $("#linkRank").val(r.data.linkRank);
-            //根据原linkType值设置select选择器为选中状态
             if (r.data.linkType == 1) {
                 $("#linkType option:eq(1)").prop("selected", 'selected');
             }

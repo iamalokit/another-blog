@@ -4,34 +4,30 @@
 </header>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    <!-- 引入页面头header-fragment -->
     <div th:replace="admin/header::header-nav"></div>
-    <!-- 引入工具栏sidebar-fragment -->
     <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
-    <!-- Content Wrapper. Contains 图标content -->
     <div class="content-wrapper">
-        <!-- Content Header (图标header) -->
         <div class="content-header">
             <div class="container-fluid">
-            </div><!-- /.container-fluid -->
+            </div>
         </div>
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">分类管理</h3>
+                        <h3 class="card-title">Categories</h3>
                     </div> <!-- /.card-body -->
                     <div class="card-body">
                         <div class="grid-btn">
                             <button class="btn btn-info" onclick="categoryAdd()"><i
-                                    class="fa fa-plus"></i>&nbsp;新增
+                                    class="fa fa-plus"></i>&nbsp;Add
                             </button>
                             <button class="btn btn-info" onclick="categoryEdit()"><i
-                                    class="fa fa-pencil-square-o"></i>&nbsp;修改
+                                    class="fa fa-pencil-square-o"></i>&nbsp;Edit
                             </button>
                             <button class="btn btn-danger" onclick="deleteCagegory()"><i
-                                    class="fa fa-trash-o"></i>&nbsp;删除
+                                    class="fa fa-trash-o"></i>&nbsp;Delete
                             </button>
                         </div>
                         <br>
@@ -44,7 +40,6 @@
         </div>
         <!-- /.content -->
         <div class="content">
-            <!-- 模态框（Modal） -->
             <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -62,12 +57,12 @@
                                 </div>
                                 <input type="hidden" class="form-control" id="categoryId" name="categoryId">
                                 <div class="form-group">
-                                    <label for="categoryName" class="control-label">分类名称:</label>
+                                    <label for="categoryName" class="control-label">Category Name</label>
                                     <input type="text" class="form-control" id="categoryName" name="categoryName"
                                            placeholder="请输入分类名称" required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="categoryIcon" class="control-label">分类图标:</label>
+                                    <label for="categoryIcon" class="control-label">Icon</label>
                                     <select class='form-control select2 image-picker' id="categoryIcon"
                                             name="categoryIcon">
                                         <option data-img-src='/admin/dist/img/category/00.png' value='/admin/dist/img/category/00.png'> 默认图标</option>

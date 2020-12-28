@@ -4,12 +4,12 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'commentId', index: 'commentId', width: 50, key: true, hidden: true},
-            {label: '评论内容', name: 'commentBody', index: 'commentBody', width: 120},
-            {label: '评论时间', name: 'commentCreateTime', index: 'commentCreateTime', width: 60},
-            {label: '评论人名称', name: 'commentator', index: 'commentator', width: 60},
-            {label: '评论人邮箱', name: 'email', index: 'email', width: 90},
-            {label: '状态', name: 'commentStatus', index: 'commentStatus', width: 60, formatter: statusFormatter},
-            {label: '回复内容', name: 'replyBody', index: 'replyBody', width: 120},
+            {label: 'Body', name: 'commentBody', index: 'commentBody', width: 120},
+            {label: 'Create Time', name: 'commentCreateTime', index: 'commentCreateTime', width: 60},
+            {label: 'Commentator', name: 'commentator', index: 'commentator', width: 60},
+            {label: 'Email', name: 'email', index: 'email', width: 90},
+            {label: 'Status', name: 'commentStatus', index: 'commentStatus', width: 60, formatter: statusFormatter},
+            {label: 'Reply Body', name: 'replyBody', index: 'replyBody', width: 120},
         ],
         height: 700,
         rowNum: 10,
@@ -33,7 +33,6 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
