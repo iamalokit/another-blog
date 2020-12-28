@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iamalokit.anotherblog.dao.BlogCategoryDao">
+	<resultMap id="BaseResultMap"
+		type="com.iamalokit.anotherblog.entity.BlogCategory">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="category_name" jdbcType="VARCHAR"
+			property="categoryName" />
+		<result column="category_icon" jdbcType="VARCHAR"
+			property="categoryIcon" />
+		<result column="category_rank" jdbcType="INTEGER"
+			property="categoryRank" />
+		<result column="is_deleted" jdbcType="TINYINT"
+			property="isDeleted" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+
+	<select id="getTotalCategories" parameterType="Map"
+		resultType="int">
+		select count(*) from blog_category
+		where is_deleted=0
+	</select>
+
+	<select id="findCategoryList" parameterType="Map"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.BaseResultMap">
+		select
+		<include refid="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.Base_Column_List" />
+		from blog_category
+		where is_deleted=0
+		order by category_rank desc,create_time desc
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+</mapper>
