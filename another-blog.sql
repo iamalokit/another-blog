@@ -38,7 +38,7 @@ CREATE TABLE `blog` (
   `blog_sub_url` varchar(200) NOT NULL,
   `blog_cover_image` varchar(200) NOT NULL,
   `blog_content` mediumtext NOT NULL,
-  `blog_category_id` int(11) NOT NULL,
+  `blog_category_id` bigint(20) NOT NULL,
   `blog_category_name` varchar(50) NOT NULL,
   `blog_tags` varchar(200) NOT NULL,
   `blog_status` tinyint(4) NOT NULL DEFAULT '0',
@@ -59,5 +59,37 @@ CREATE TABLE `blog_config` (
   `config_value` varchar(200) NOT NULL DEFAULT '' ,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `blog_comment`;
+
+CREATE TABLE `blog_comment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
+  `blog_id` bigint(20) NOT NULL DEFAULT '0' ,
+  `commentator` varchar(50) NOT NULL DEFAULT '' ,
+  `email` varchar(100) NOT NULL DEFAULT '' ,
+  `website_url` varchar(50) NOT NULL DEFAULT '' ,
+  `comment_body` varchar(200) NOT NULL DEFAULT '' ,
+  `comment_create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `commentator_ip` varchar(20) NOT NULL DEFAULT '' ,
+  `reply_body` varchar(200) NOT NULL DEFAULT '' ,
+  `reply_create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `comment_status` tinyint(4) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `blog_link`;
+
+CREATE TABLE `blog_link` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
+  `link_type` tinyint(4) NOT NULL DEFAULT '0' ,
+  `link_name` varchar(50) NOT NULL ,
+  `link_url` varchar(100) NOT NULL ,
+  `link_description` varchar(100) NOT NULL ,
+  `link_rank` int(11) NOT NULL DEFAULT '0' ,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0' ,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

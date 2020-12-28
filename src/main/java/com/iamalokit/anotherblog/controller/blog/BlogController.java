@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.iamalokit.anotherblog.service.BlogService;
 import com.iamalokit.anotherblog.service.CategoryService;
+import com.iamalokit.anotherblog.service.CommentService;
 import com.iamalokit.anotherblog.service.ConfigService;
 import com.iamalokit.anotherblog.util.PageResult;
 
@@ -22,8 +23,8 @@ public class BlogController {
 //	private TagService tagService;
 //	@Resource
 //	private LinkService linkService;
-//	@Resource
-//	private CommentService commentService;
+	@Resource
+	private CommentService commentService;
 	@Resource
 	private ConfigService configService;
 	@Resource

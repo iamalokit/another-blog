@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iamalokit.anotherblog.entity.AdminUser;
 import com.iamalokit.anotherblog.service.AdminUserService;
+import com.iamalokit.anotherblog.service.BlogService;
 import com.iamalokit.anotherblog.service.CategoryService;
+import com.iamalokit.anotherblog.service.CommentService;
+import com.iamalokit.anotherblog.service.LinkService;
+import com.iamalokit.anotherblog.service.TagService;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,6 +29,19 @@ public class AdminController {
 	
 	@Resource
 	private CategoryService categoryService;
+	
+	@Resource
+	private BlogService blogService;
+	
+	@Resource
+	private CommentService commentService;
+	
+	@Resource
+	private LinkService linkService;
+	
+	@Resource
+	private TagService tagService;
+	
 
 	@GetMapping({ "/login" })
 	public String login() {
@@ -62,10 +79,10 @@ public class AdminController {
 	public String index(HttpServletRequest request) {
 		request.setAttribute("path", "index");
 		request.setAttribute("categoryCount", categoryService.getTotalCategories());
-//		request.setAttribute("blogCount", blogService.getTotalBlogs());
-//		request.setAttribute("linkCount", linkService.getTotalLinks());
-//		request.setAttribute("tagCount", tagService.getTotalTags());
-//		request.setAttribute("commentCount", commentService.getTotalComments());
+		request.setAttribute("blogCount", blogService.getTotalBlogs());
+		request.setAttribute("linkCount", linkService.getTotalLinks());
+		request.setAttribute("tagCount", tagService.getTotalTags());
+		request.setAttribute("commentCount", commentService.getTotalComments());
 		return "admin/index";
 	}
 

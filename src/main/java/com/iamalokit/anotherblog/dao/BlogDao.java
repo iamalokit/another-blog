@@ -15,5 +15,7 @@ public interface BlogDao {
 	List<Blog> findBlogList(PageQueryUtil pageUtil);
 	
 	int getTotalBlogs(PageQueryUtil pageUtil);
+	
+	List<Blog> findBlogListByType(@Param("type") int type, @Param("limit") int limit);
 
 }

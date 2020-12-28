@@ -37,4 +37,17 @@
             AND blog_category_id = #{blogCategoryId}
         </if>
     </select>
+    <select id="findBlogListByType" resultMap="com.iamalokit.anotherblog.mapper.BlogMapper.BaseResultMap">
+        select
+        <include refid="com.iamalokit.anotherblog.mapper.BlogMapper.Base_Column_List"/>
+        from blog
+        where is_deleted=0 AND blog_status = 1
+        <if test="type!=null and type==0">
+            order by blog_views desc
+        </if>
+        <if test="type!=null and type==1">
+            order by id desc
+        </if>
+        limit #{limit}
+    </select>
 </mapper>

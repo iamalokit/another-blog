@@ -26,9 +26,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private BlogDao blogDao;
 
-	@Autowired
-	private BlogMapper blogMapper;
-
 	@Override
 	public PageResult getBlogCategoryPage(PageQueryUtil pageUtil) {
 		List<BlogCategory> categoryList = blogCategoryDao.findCategoryList(pageUtil);

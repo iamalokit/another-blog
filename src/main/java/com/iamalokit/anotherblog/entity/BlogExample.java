@@ -385,52 +385,52 @@ public class BlogExample {
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdEqualTo(Integer value) {
+        public Criteria andBlogCategoryIdEqualTo(Long value) {
             addCriterion("blog_category_id =", value, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdNotEqualTo(Integer value) {
+        public Criteria andBlogCategoryIdNotEqualTo(Long value) {
             addCriterion("blog_category_id <>", value, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdGreaterThan(Integer value) {
+        public Criteria andBlogCategoryIdGreaterThan(Long value) {
             addCriterion("blog_category_id >", value, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andBlogCategoryIdGreaterThanOrEqualTo(Long value) {
             addCriterion("blog_category_id >=", value, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdLessThan(Integer value) {
+        public Criteria andBlogCategoryIdLessThan(Long value) {
             addCriterion("blog_category_id <", value, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdLessThanOrEqualTo(Integer value) {
+        public Criteria andBlogCategoryIdLessThanOrEqualTo(Long value) {
             addCriterion("blog_category_id <=", value, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdIn(List<Integer> values) {
+        public Criteria andBlogCategoryIdIn(List<Long> values) {
             addCriterion("blog_category_id in", values, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdNotIn(List<Integer> values) {
+        public Criteria andBlogCategoryIdNotIn(List<Long> values) {
             addCriterion("blog_category_id not in", values, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdBetween(Integer value1, Integer value2) {
+        public Criteria andBlogCategoryIdBetween(Long value1, Long value2) {
             addCriterion("blog_category_id between", value1, value2, "blogCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogCategoryIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andBlogCategoryIdNotBetween(Long value1, Long value2) {
             addCriterion("blog_category_id not between", value1, value2, "blogCategoryId");
             return (Criteria) this;
         }

@@ -26,16 +26,16 @@ import com.iamalokit.anotherblog.vo.SimpleBlogListVO;
 
 @Service
 public class BlogServiceImpl implements BlogService {
-	
+
 	@Autowired
 	private BlogDao blogDao;
-	
+
 	@Autowired
 	private BlogMapper blogMapper;
-	
+
 	@Autowired
 	private BlogCategoryMapper blogCategoryMapper;
-	
+
 	@Autowired
 	private BlogCategoryDao blogCategoryDao;
 
@@ -59,8 +59,7 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public int getTotalBlogs() {
-		// TODO Auto-generated method stub
-		return 0;
+		return blogDao.getTotalBlogs(null);
 	}
 
 	@Override
@@ -91,9 +90,17 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public List<SimpleBlogListVO> getBlogListForIndexPage(int type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        List<SimpleBlogListVO> simpleBlogListVOS = new ArrayList<>();
+        List<Blog> blogs = blogDao.findBlogListByType(type, 9);
+        if (!CollectionUtils.isEmpty(blogs)) {
+            for (Blog blog : blogs) {
+                SimpleBlogListVO simpleBlogListVO = new SimpleBlogListVO();
+                BeanUtils.copyProperties(blog, simpleBlogListVO);
+                simpleBlogListVOS.add(simpleBlogListVO);
+            }
+        }
+        return simpleBlogListVOS;
+    }
 
 	@Override
 	public BlogDetailVO getBlogDetail(Long blogId) {
@@ -124,32 +131,33 @@ public class BlogServiceImpl implements BlogService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private List<BlogListVO> getBlogListVOsByBlogs(List<Blog> blogList) {
-        List<BlogListVO> blogListVOS = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(blogList)) {
-            List<Long> categoryIds = blogList.stream().map(Blog::getBlogCategoryId).collect(Collectors.toList());
-            Map<Long, String> blogCategoryMap = new HashMap<>();
-            if (!CollectionUtils.isEmpty(categoryIds)) {
-                List<BlogCategory> blogCategories = blogCategoryDao.selectByCategoryIds(categoryIds);
-                if (!CollectionUtils.isEmpty(blogCategories)) {
-                    blogCategoryMap = blogCategories.stream().collect(Collectors.toMap(BlogCategory::getId, BlogCategory::getCategoryIcon, (key1, key2) -> key2));
-                }
-            }
-            for (Blog blog : blogList) {
-                BlogListVO blogListVO = new BlogListVO();
-                BeanUtils.copyProperties(blog, blogListVO);
-                if (blogCategoryMap.containsKey(blog.getBlogCategoryId())) {
-                    blogListVO.setBlogCategoryIcon(blogCategoryMap.get(blog.getBlogCategoryId()));
-                } else {
-                    blogListVO.setBlogCategoryId(0);
-                    blogListVO.setBlogCategoryName("Default Category");
-                    blogListVO.setBlogCategoryIcon("/admin/dist/img/category/00.png");
-                }
-                blogListVOS.add(blogListVO);
-            }
-        }
-        return blogListVOS;
-    }
+		List<BlogListVO> blogListVOS = new ArrayList<>();
+		if (!CollectionUtils.isEmpty(blogList)) {
+			List<Long> categoryIds = blogList.stream().map(Blog::getBlogCategoryId).collect(Collectors.toList());
+			Map<Long, String> blogCategoryMap = new HashMap<>();
+			if (!CollectionUtils.isEmpty(categoryIds)) {
+				List<BlogCategory> blogCategories = blogCategoryDao.selectByCategoryIds(categoryIds);
+				if (!CollectionUtils.isEmpty(blogCategories)) {
+					blogCategoryMap = blogCategories.stream().collect(
+							Collectors.toMap(BlogCategory::getId, BlogCategory::getCategoryIcon, (key1, key2) -> key2));
+				}
+			}
+			for (Blog blog : blogList) {
+				BlogListVO blogListVO = new BlogListVO();
+				BeanUtils.copyProperties(blog, blogListVO);
+				if (blogCategoryMap.containsKey(blog.getBlogCategoryId())) {
+					blogListVO.setBlogCategoryIcon(blogCategoryMap.get(blog.getBlogCategoryId()));
+				} else {
+					blogListVO.setBlogCategoryId(0);
+					blogListVO.setBlogCategoryName("Default Category");
+					blogListVO.setBlogCategoryIcon("/admin/dist/img/category/00.png");
+				}
+				blogListVOS.add(blogListVO);
+			}
+		}
+		return blogListVOS;
+	}
 
 }
