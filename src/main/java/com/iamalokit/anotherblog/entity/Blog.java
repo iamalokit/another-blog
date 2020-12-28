@@ -12,7 +12,7 @@ public class Blog implements Serializable {
 
     private String blogCoverImage;
 
-    private Integer blogCategoryId;
+    private Long blogCategoryId;
 
     private String blogCategoryName;
 
@@ -66,11 +66,11 @@ public class Blog implements Serializable {
         this.blogCoverImage = blogCoverImage == null ? null : blogCoverImage.trim();
     }
 
-    public Integer getBlogCategoryId() {
+    public Long getBlogCategoryId() {
         return blogCategoryId;
     }
 
-    public void setBlogCategoryId(Integer blogCategoryId) {
+    public void setBlogCategoryId(Long blogCategoryId) {
         this.blogCategoryId = blogCategoryId;
     }
 

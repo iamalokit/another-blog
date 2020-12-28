@@ -49,3 +49,15 @@ CREATE TABLE `blog` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `blog_config`;
+
+CREATE TABLE `blog_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `config_name` varchar(100) NOT NULL DEFAULT '' ,
+  `config_value` varchar(200) NOT NULL DEFAULT '' ,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

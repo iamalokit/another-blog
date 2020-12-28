@@ -36,7 +36,7 @@ import com.iamalokit.anotherblog.util.URLUtil;
 
 @Controller
 @RequestMapping("/admin")
-public class BlogController {
+public class AdminBlogController {
 
 	@Resource
 	private BlogService blogService;
@@ -84,7 +84,7 @@ public class BlogController {
 	@ResponseBody
 	public Result save(@RequestParam("blogTitle") String blogTitle,
 			@RequestParam(name = "blogSubUrl", required = false) String blogSubUrl,
-			@RequestParam("blogCategoryId") Integer blogCategoryId, @RequestParam("blogTags") String blogTags,
+			@RequestParam("blogCategoryId") Long blogCategoryId, @RequestParam("blogTags") String blogTags,
 			@RequestParam("blogContent") String blogContent, @RequestParam("blogCoverImage") String blogCoverImage,
 			@RequestParam("blogStatus") Byte blogStatus, @RequestParam("enableComment") Byte enableComment) {
 		if (BlogStringUtil.isNullOrEmpty(blogTitle)) {
@@ -132,7 +132,7 @@ public class BlogController {
 	@ResponseBody
 	public Result update(@RequestParam("blogId") Long blogId, @RequestParam("blogTitle") String blogTitle,
 			@RequestParam(name = "blogSubUrl", required = false) String blogSubUrl,
-			@RequestParam("blogCategoryId") Integer blogCategoryId, @RequestParam("blogTags") String blogTags,
+			@RequestParam("blogCategoryId") Long blogCategoryId, @RequestParam("blogTags") String blogTags,
 			@RequestParam("blogContent") String blogContent, @RequestParam("blogCoverImage") String blogCoverImage,
 			@RequestParam("blogStatus") Byte blogStatus, @RequestParam("enableComment") Byte enableComment) {
 		if (BlogStringUtil.isNullOrEmpty(blogTitle)) {
