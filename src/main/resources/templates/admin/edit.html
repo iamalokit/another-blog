@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <form id="blogForm" onsubmit="return false;">
                             <div class="form-group" style="display:flex;">
-                                <input type="hidden" id="blogId" name="blogId" th:value="${blog!=null and blog.blogId!=null }?${blog.blogId}: 0">
+                                <input type="hidden" id="blogId" name="blogId" th:value="${blog!=null and blog.id!=null }?${blog.id}: 0">
                                 <input type="text" class="form-control col-sm-6" id="blogName" name="blogName"
                                        placeholder="Title of the Article"
                                        th:value="${blog!=null and blog.blogTitle!=null }?${blog.blogTitle}: ''"
@@ -49,7 +49,7 @@
                                     <th:block th:unless="${null == categories}">
                                         <th:block th:each="c : ${categories}">
                                             <option th:value="${c.id}" th:text="${c.categoryName}"
-                                                    th:selected="${null !=blog and null !=blog.blogCategoryId and blog.blogCategoryId==c.categoryId} ?true:false">
+                                                    th:selected="${null !=blog and null !=blog.blogCategoryId and blog.blogCategoryId==c.id} ?true:false">
                                                 >
                                             </option>
                                         </th:block>

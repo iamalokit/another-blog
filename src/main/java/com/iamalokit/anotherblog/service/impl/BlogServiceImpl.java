@@ -115,8 +115,7 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public Blog getBlogById(Long blogId) {
-		// TODO Auto-generated method stub
-		return null;
+		return blogMapper.selectByPrimaryKey(blogId);
 	}
 
 	@Override

@@ -15,7 +15,7 @@ $(function () {
         rowNum: 10,
         rowList: [10, 20, 50],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'Loading articles...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -47,10 +47,10 @@ $(function () {
 
     function statusFormatter(cellvalue) {
         if (cellvalue == 0) {
-            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">草稿</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">Draft</button>";
         }
         else if (cellvalue == 1) {
-            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">发布</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">Published</button>";
         }
     }
 
@@ -99,8 +99,8 @@ function deleteBlog() {
         return;
     }
     swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
+        title: "Delete",
+        text: "Are you sure you want to delete the selected Article?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -113,7 +113,7 @@ function deleteBlog() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
+                            swal("Deleted Successfully", {
                                 icon: "success",
                             });
                             $("#jqGrid").trigger("reloadGrid");
