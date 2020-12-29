@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iamalokit.anotherblog.dao.BlogTagDao">
+	<select id="selectByTagName" parameterType="java.lang.String"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogTagMapper.BaseResultMap">
+		select
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogTagMapper.Base_Column_List" />
+		from blog_tag
+		where tag_name = #{tagName,jdbcType=VARCHAR} AND
+		is_deleted = 0
+	</select>
+
+
+	<select id="getTotalTags" parameterType="Map" resultType="int">
+		select
+		count(*) from blog_tag
+		where is_deleted=0
+	</select>
+
+	<select id="findTagList" parameterType="Map"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogTagMapper.BaseResultMap">
+		select
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogTagMapper.Base_Column_List" />
+		from blog_tag
+		where is_deleted=0
+		order by id desc
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+
+	<update id="deleteBatch">
+		update blog_tag
+		set is_deleted=1 where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
+</mapper>

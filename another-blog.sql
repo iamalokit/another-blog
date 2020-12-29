@@ -93,3 +93,26 @@ CREATE TABLE `blog_link` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `blog_tag`;
+
+CREATE TABLE `blog_tag` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
+  `tag_name` varchar(100) NOT NULL ,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0' ,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+select * from blog_tag;
+
+DROP TABLE IF EXISTS `blog_tag_relation`;
+
+CREATE TABLE `blog_tag_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `blog_id` bigint(20) NOT NULL,
+  `tag_id` bigint(20) NOT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

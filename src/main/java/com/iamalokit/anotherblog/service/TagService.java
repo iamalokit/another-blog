@@ -13,7 +13,7 @@ public interface TagService {
 
 	Boolean saveTag(String tagName);
 
-	Boolean deleteBatch(Integer[] ids);
+	Boolean deleteBatch(Long[] ids);
 
 	List<BlogTagCount> getBlogTagCountForIndex();
 
