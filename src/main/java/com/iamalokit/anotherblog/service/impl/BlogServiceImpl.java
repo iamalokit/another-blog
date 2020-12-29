@@ -13,8 +13,12 @@ import org.springframework.util.CollectionUtils;
 
 import com.iamalokit.anotherblog.dao.BlogCategoryDao;
 import com.iamalokit.anotherblog.dao.BlogDao;
+import com.iamalokit.anotherblog.dao.BlogTagDao;
+import com.iamalokit.anotherblog.dao.BlogTagRelationDao;
 import com.iamalokit.anotherblog.entity.Blog;
 import com.iamalokit.anotherblog.entity.BlogCategory;
+import com.iamalokit.anotherblog.entity.BlogTag;
+import com.iamalokit.anotherblog.entity.BlogTagRelation;
 import com.iamalokit.anotherblog.mapper.BlogCategoryMapper;
 import com.iamalokit.anotherblog.mapper.BlogMapper;
 import com.iamalokit.anotherblog.service.BlogService;
@@ -38,12 +42,58 @@ public class BlogServiceImpl implements BlogService {
 
 	@Autowired
 	private BlogCategoryDao blogCategoryDao;
+	
+	@Autowired
+	private BlogTagDao blogTagDao;
+	
+	@Autowired
+	private BlogTagRelationDao blogTagRelationDao;
 
 	@Override
 	public String saveBlog(Blog blog) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
+        if (blogCategory == null) {
+            blog.setBlogCategoryId(new Long(0));
+            blog.setBlogCategoryName("Default");
+        } else {
+            blog.setBlogCategoryName(blogCategory.getCategoryName());
+            blogCategory.setCategoryRank(blogCategory.getCategoryRank() + 1);
+        }
+        String[] tags = blog.getBlogTags().split(",");
+        if (tags.length > 6) {
+            return "Number of tags are limited to 6";
+        }
+        if (blogMapper.insertSelective(blog) > 0) {
+            List<BlogTag> tagListForInsert = new ArrayList<>();
+            List<BlogTag> allTagsList = new ArrayList<>();
+            for (int i = 0; i < tags.length; i++) {
+                BlogTag tag = blogTagDao.selectByTagName(tags[i]);
+                if (tag == null) {
+                    BlogTag tempTag = new BlogTag();
+                    tempTag.setTagName(tags[i]);
+                    tagListForInsert.add(tempTag);
+                } else {
+                    allTagsList.add(tag);
+                }
+            }
+            if (!CollectionUtils.isEmpty(tagListForInsert)) {
+            	blogTagDao.batchInsertBlogTag(tagListForInsert);
+            }
+            blogCategoryMapper.updateByPrimaryKeySelective(blogCategory);
+            List<BlogTagRelation> blogTagRelations = new ArrayList<>();
+            allTagsList.addAll(tagListForInsert);
+            for (BlogTag tag : allTagsList) {
+                BlogTagRelation blogTagRelation = new BlogTagRelation();
+                blogTagRelation.setBlogId(blog.getId());
+                blogTagRelation.setTagId(tag.getId());
+                blogTagRelations.add(blogTagRelation);
+            }
+            if (blogTagRelationDao.batchInsert(blogTagRelations) > 0) {
+                return "success";
+            }
+        }
+        return "failure";
+    }
 
 	@Override
 	public PageResult getBlogsPage(PageQueryUtil pageUtil) {

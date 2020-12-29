@@ -3,7 +3,7 @@ $(function () {
         url: '/admin/categories/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'categoryId', index: 'categoryId', width: 50, key: true, hidden: true},
+            {label: 'id', name: 'categoryId', index: 'id', width: 50, key: true, hidden: true},
             {label: 'Name', name: 'categoryName', index: 'categoryName', width: 240},
             {label: 'Icon', name: 'categoryIcon', index: 'categoryIcon', width: 120, formatter: imgFormatter},
             {label: 'Create Time', name: 'createTime', index: 'createTime', width: 120}

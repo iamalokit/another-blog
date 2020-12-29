@@ -13,4 +13,6 @@ public interface BlogTagDao {
 	List<BlogTag> findTagList(PageQueryUtil pageUtil);
 	
 	int deleteBatch(Long[] ids);
+	
+	int batchInsertBlogTag(List<BlogTag> tagList);
 }

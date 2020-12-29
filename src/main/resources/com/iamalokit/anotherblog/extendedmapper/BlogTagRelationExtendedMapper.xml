@@ -13,4 +13,12 @@
 		</foreach>
 	</select>
 
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT into blog_tag_relation(blog_id,tag_id)
+		VALUES
+		<foreach collection="relationList" item="item" separator=",">
+			(#{item.blogId,jdbcType=BIGINT},#{item.tagId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
 </mapper>

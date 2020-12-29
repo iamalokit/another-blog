@@ -6,9 +6,7 @@
 <link th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
 <link th:href="@{/admin/plugins/select2/select2.css}" rel="stylesheet"/>
 <div class="wrapper">
-    <!-- 引入页面头header-fragment -->
     <div th:replace="admin/header::header-nav"></div>
-    <!-- 引入工具栏sidebar-fragment -->
     <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -22,20 +20,19 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">发布文章</h3>
+                        <h3 class="card-title">Start Writing Here </h3>
                     </div>
                     <div class="card-body">
-                        <!-- 几个基础的输入框，名称、分类等输入框 -->
                         <form id="blogForm" onsubmit="return false;">
                             <div class="form-group" style="display:flex;">
                                 <input type="hidden" id="blogId" name="blogId" th:value="${blog!=null and blog.blogId!=null }?${blog.blogId}: 0">
                                 <input type="text" class="form-control col-sm-6" id="blogName" name="blogName"
-                                       placeholder="*请输入文章标题(必填)"
+                                       placeholder="Title of the Article"
                                        th:value="${blog!=null and blog.blogTitle!=null }?${blog.blogTitle}: ''"
                                        required="true">
                                 &nbsp;&nbsp;
                                 <input type="text" class="form-control" id="blogTags" name="blogTags"
-                                       placeholder="请输入文章标签"
+                                       placeholder="Enter Tags"
                                        th:value="${blog!=null and blog.blogTags!=null }?${blog.blogTags}: ''"
                                        style="width: 100%;">
                             </div>
@@ -43,15 +40,15 @@
                                 <input type="text" class="form-control col-sm-6" id="blogSubUrl"
                                        name="blogSubUrl"
                                        th:value="${blog!=null and blog.blogSubUrl!=null }?${blog.blogSubUrl}: ''"
-                                       placeholder="请输入自定义路径,如:springboot-mybatis,默认为id"> &nbsp;&nbsp;
+                                       placeholder="Enter Sub-Url"> &nbsp;&nbsp;
                                 <select class="form-control select2" style="width: 100%;" id="blogCategoryId"
-                                        data-placeholder="请选择分类...">
+                                        data-placeholder="Select Category">
                                     <th:block th:if="${null == categories}">
-                                        <option value="0" selected="selected">默认分类</option>
+                                        <option value="0" selected="selected">Default</option>
                                     </th:block>
                                     <th:block th:unless="${null == categories}">
                                         <th:block th:each="c : ${categories}">
-                                            <option th:value="${c.categoryId}" th:text="${c.categoryName}"
+                                            <option th:value="${c.id}" th:text="${c.categoryName}"
                                                     th:selected="${null !=blog and null !=blog.blogCategoryId and blog.blogCategoryId==c.categoryId} ?true:false">
                                                 >
                                             </option>
@@ -66,10 +63,10 @@
                             <div class="form-group">
                                 <!-- 按钮 -->
                                 &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
-                                              id="confirmButton">保存文章
+                                              id="confirmButton">Confirm
                             </button>&nbsp;
                                 &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
-                                              id="cancelButton">返回文章列表
+                                              id="cancelButton">Cancel
                             </button>&nbsp;
                             </div>
                         </form>
@@ -79,7 +76,6 @@
             </div><!-- /.container-fluid -->
         </div>
         <div class="content">
-            <!-- 模态框（Modal） -->
             <div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -144,7 +140,6 @@
         </div>
     </div>
     <!-- /.content-wrapper -->
-    <!-- 引入页脚footer-fragment -->
     <div th:replace="admin/footer::footer-fragment"></div>
 </div>
 <!-- jQuery -->
