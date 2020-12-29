@@ -4,7 +4,8 @@
 	<select id="findBlogList" parameterType="Map"
 		resultMap="com.iamalokit.anotherblog.mapper.BlogMapper.BaseResultMap">
 		select
-		<include refid="com.iamalokit.anotherblog.mapper.BlogMapper.Base_Column_List" />
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogMapper.Base_Column_List" />
 		from blog
 		where is_deleted=0
 		<if test="keyword!=null">
@@ -23,31 +24,43 @@
 			limit #{start},#{limit}
 		</if>
 	</select>
-	
+
 	<select id="getTotalBlogs" parameterType="Map" resultType="int">
-        select count(*) from blog
-        where is_deleted=0
-        <if test="keyword!=null">
-            AND (blog_title like CONCAT('%',#{keyword},'%' ) or blog_category_name like CONCAT('%',#{keyword},'%' ))
-        </if>
-        <if test="blogStatus!=null">
-            AND blog_status = #{blogStatus}
-        </if>
-        <if test="blogCategoryId!=null">
-            AND blog_category_id = #{blogCategoryId}
-        </if>
-    </select>
-    <select id="findBlogListByType" resultMap="com.iamalokit.anotherblog.mapper.BlogMapper.BaseResultMap">
-        select
-        <include refid="com.iamalokit.anotherblog.mapper.BlogMapper.Base_Column_List"/>
-        from blog
-        where is_deleted=0 AND blog_status = 1
-        <if test="type!=null and type==0">
-            order by blog_views desc
-        </if>
-        <if test="type!=null and type==1">
-            order by id desc
-        </if>
-        limit #{limit}
-    </select>
+		select count(*) from blog
+		where is_deleted=0
+		<if test="keyword!=null">
+			AND (blog_title like CONCAT('%',#{keyword},'%' ) or blog_category_name
+			like CONCAT('%',#{keyword},'%' ))
+		</if>
+		<if test="blogStatus!=null">
+			AND blog_status = #{blogStatus}
+		</if>
+		<if test="blogCategoryId!=null">
+			AND blog_category_id = #{blogCategoryId}
+		</if>
+	</select>
+	<select id="findBlogListByType"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogMapper.BaseResultMap">
+		select
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogMapper.Base_Column_List" />
+		from blog
+		where is_deleted=0 AND blog_status = 1
+		<if test="type!=null and type==0">
+			order by blog_views desc
+		</if>
+		<if test="type!=null and type==1">
+			order by id desc
+		</if>
+		limit #{limit}
+	</select>
+
+	<update id="deleteBatch">
+		update blog
+		set is_deleted=1 where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
 </mapper>

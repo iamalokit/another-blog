@@ -41,7 +41,7 @@
 	</update>
 
 	<insert id="batchInsertBlogTag" parameterType="java.util.List"
-		useGeneratedKeys="true" keyProperty="tagId">
+		useGeneratedKeys="true" keyProperty="id">
 		INSERT into blog_tag(tag_name)
 		VALUES
 		<foreach collection="list" item="item" separator=",">

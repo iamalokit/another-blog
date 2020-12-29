@@ -42,69 +42,70 @@ public class BlogServiceImpl implements BlogService {
 
 	@Autowired
 	private BlogCategoryDao blogCategoryDao;
-	
+
 	@Autowired
 	private BlogTagDao blogTagDao;
-	
+
 	@Autowired
 	private BlogTagRelationDao blogTagRelationDao;
 
 	@Override
 	public String saveBlog(Blog blog) {
-        BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
-        if (blogCategory == null) {
-            blog.setBlogCategoryId(new Long(0));
-            blog.setBlogCategoryName("Default");
-        } else {
-            blog.setBlogCategoryName(blogCategory.getCategoryName());
-            blogCategory.setCategoryRank(blogCategory.getCategoryRank() + 1);
-        }
-        String[] tags = blog.getBlogTags().split(",");
-        if (tags.length > 6) {
-            return "Number of tags are limited to 6";
-        }
-        if (blogMapper.insertSelective(blog) > 0) {
-            List<BlogTag> tagListForInsert = new ArrayList<>();
-            List<BlogTag> allTagsList = new ArrayList<>();
-            for (int i = 0; i < tags.length; i++) {
-                BlogTag tag = blogTagDao.selectByTagName(tags[i]);
-                if (tag == null) {
-                    BlogTag tempTag = new BlogTag();
-                    tempTag.setTagName(tags[i]);
-                    tagListForInsert.add(tempTag);
-                } else {
-                    allTagsList.add(tag);
-                }
-            }
-            if (!CollectionUtils.isEmpty(tagListForInsert)) {
-            	blogTagDao.batchInsertBlogTag(tagListForInsert);
-            }
-            blogCategoryMapper.updateByPrimaryKeySelective(blogCategory);
-            List<BlogTagRelation> blogTagRelations = new ArrayList<>();
-            allTagsList.addAll(tagListForInsert);
-            for (BlogTag tag : allTagsList) {
-                BlogTagRelation blogTagRelation = new BlogTagRelation();
-                blogTagRelation.setBlogId(blog.getId());
-                blogTagRelation.setTagId(tag.getId());
-                blogTagRelations.add(blogTagRelation);
-            }
-            if (blogTagRelationDao.batchInsert(blogTagRelations) > 0) {
-                return "success";
-            }
-        }
-        return "failure";
-    }
+		BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
+		if (blogCategory == null) {
+			blog.setBlogCategoryId(new Long(0));
+			blog.setBlogCategoryName("Default");
+		} else {
+			blog.setBlogCategoryName(blogCategory.getCategoryName());
+			blogCategory.setCategoryRank(blogCategory.getCategoryRank() + 1);
+		}
+		String[] tags = blog.getBlogTags().split(",");
+		if (tags.length > 6) {
+			return "Number of tags are limited to 6";
+		}
+		if (blogMapper.insertSelective(blog) > 0) {
+			List<BlogTag> tagListForInsert = new ArrayList<>();
+			List<BlogTag> allTagsList = new ArrayList<>();
+			for (int i = 0; i < tags.length; i++) {
+				BlogTag tag = blogTagDao.selectByTagName(tags[i]);
+				if (tag == null) {
+					BlogTag tempTag = new BlogTag();
+					tempTag.setTagName(tags[i]);
+					tagListForInsert.add(tempTag);
+				} else {
+					allTagsList.add(tag);
+				}
+			}
+			if (!CollectionUtils.isEmpty(tagListForInsert)) {
+				blogTagDao.batchInsertBlogTag(tagListForInsert);
+			}
+			blogCategoryMapper.updateByPrimaryKeySelective(blogCategory);
+			List<BlogTagRelation> blogTagRelations = new ArrayList<>();
+			allTagsList.addAll(tagListForInsert);
+			for (BlogTag tag : allTagsList) {
+				BlogTagRelation blogTagRelation = new BlogTagRelation();
+				blogTagRelation.setBlogId(blog.getId());
+				blogTagRelation.setTagId(tag.getId());
+				blogTagRelations.add(blogTagRelation);
+			}
+			if (blogTagRelationDao.batchInsert(blogTagRelations) > 0) {
+				return "success";
+			}
+		}
+		return "failure";
+	}
 
 	@Override
 	public PageResult getBlogsPage(PageQueryUtil pageUtil) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Blog> blogList = blogDao.findBlogList(pageUtil);
+		int total = blogDao.getTotalBlogs(pageUtil);
+		PageResult pageResult = new PageResult(blogList, total, pageUtil.getLimit(), pageUtil.getPage());
+		return pageResult;
 	}
 
 	@Override
 	public Boolean deleteBatch(Long[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		return blogDao.deleteBatch(ids) > 0;
 	}
 
 	@Override
@@ -140,17 +141,17 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public List<SimpleBlogListVO> getBlogListForIndexPage(int type) {
-        List<SimpleBlogListVO> simpleBlogListVOS = new ArrayList<>();
-        List<Blog> blogs = blogDao.findBlogListByType(type, 9);
-        if (!CollectionUtils.isEmpty(blogs)) {
-            for (Blog blog : blogs) {
-                SimpleBlogListVO simpleBlogListVO = new SimpleBlogListVO();
-                BeanUtils.copyProperties(blog, simpleBlogListVO);
-                simpleBlogListVOS.add(simpleBlogListVO);
-            }
-        }
-        return simpleBlogListVOS;
-    }
+		List<SimpleBlogListVO> simpleBlogListVOS = new ArrayList<>();
+		List<Blog> blogs = blogDao.findBlogListByType(type, 9);
+		if (!CollectionUtils.isEmpty(blogs)) {
+			for (Blog blog : blogs) {
+				SimpleBlogListVO simpleBlogListVO = new SimpleBlogListVO();
+				BeanUtils.copyProperties(blog, simpleBlogListVO);
+				simpleBlogListVOS.add(simpleBlogListVO);
+			}
+		}
+		return simpleBlogListVOS;
+	}
 
 	@Override
 	public BlogDetailVO getBlogDetail(Long blogId) {
