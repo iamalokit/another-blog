@@ -21,4 +21,9 @@
 			(#{item.blogId,jdbcType=BIGINT},#{item.tagId,jdbcType=INTEGER})
 		</foreach>
 	</insert>
+	
+	<delete id="deleteByBlogId" parameterType="java.lang.Long">
+        delete from blog_tag_relation
+        where blog_id = #{blogId,jdbcType=BIGINT}
+    </delete>
 </mapper>

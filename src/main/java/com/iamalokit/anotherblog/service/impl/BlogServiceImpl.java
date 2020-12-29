@@ -120,9 +120,61 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public String updateBlog(Blog blog) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        Blog blogToUpdate = blogMapper.selectByPrimaryKey(blog.getId());
+        if (blogToUpdate == null) {
+            return "Article does not exist";
+        }
+        blogToUpdate.setBlogTitle(blog.getBlogTitle());
+        blogToUpdate.setBlogSubUrl(blog.getBlogSubUrl());
+        blogToUpdate.setBlogContent(blog.getBlogContent());
+        blogToUpdate.setBlogCoverImage(blog.getBlogCoverImage());
+        blogToUpdate.setBlogStatus(blog.getBlogStatus());
+        blogToUpdate.setEnableComment(blog.getEnableComment());
+        BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
+        if (blogCategory == null) {
+        	blogToUpdate.setBlogCategoryId(new Long(0));
+        	blogToUpdate.setBlogCategoryName("Default");
+        } else {
+        	blogToUpdate.setBlogCategoryName(blogCategory.getCategoryName());
+        	blogToUpdate.setBlogCategoryId(blogCategory.getId());
+            blogCategory.setCategoryRank(blogCategory.getCategoryRank() + 1);
+        }
+        String[] tags = blog.getBlogTags().split(",");
+        if (tags.length > 6) {
+            return "Number of tags are limited to 6";
+        }
+        blogToUpdate.setBlogTags(blog.getBlogTags());
+        List<BlogTag> tagListForInsert = new ArrayList<>();
+        List<BlogTag> allTagsList = new ArrayList<>();
+        for (int i = 0; i < tags.length; i++) {
+            BlogTag tag = blogTagDao.selectByTagName(tags[i]);
+            if (tag == null) {
+                BlogTag tempTag = new BlogTag();
+                tempTag.setTagName(tags[i]);
+                tagListForInsert.add(tempTag);
+            } else {
+                allTagsList.add(tag);
+            }
+        }
+        if (!CollectionUtils.isEmpty(tagListForInsert)) {
+            blogTagDao.batchInsertBlogTag(tagListForInsert);
+        }
+        List<BlogTagRelation> blogTagRelations = new ArrayList<>();
+        allTagsList.addAll(tagListForInsert);
+        for (BlogTag tag : allTagsList) {
+            BlogTagRelation blogTagRelation = new BlogTagRelation();
+            blogTagRelation.setBlogId(blog.getId());
+            blogTagRelation.setTagId(tag.getId());
+            blogTagRelations.add(blogTagRelation);
+        }
+        blogCategoryMapper.updateByPrimaryKeySelective(blogCategory);
+        blogTagRelationDao.deleteByBlogId(blog.getId());
+        blogTagRelationDao.batchInsert(blogTagRelations);
+        if (blogMapper.updateByPrimaryKeySelective(blogToUpdate) > 0) {
+            return "success";
+        }
+        return "failure";
+    }
 
 	@Override
 	public PageResult getBlogsForIndexPage(int page) {

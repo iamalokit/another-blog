@@ -55,4 +55,15 @@
 			#{id}
 		</foreach>
 	</update>
+	
+	<select id="selectByCategoryIds" resultMap="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.BaseResultMap">
+        select
+        <include refid="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.Base_Column_List"/>
+        from blog_category
+        where id IN
+        <foreach collection="categoryIds" item="item" index="index"
+                 open="(" separator="," close=")">#{item}
+        </foreach>
+        AND is_deleted = 0
+    </select>
 </mapper>
