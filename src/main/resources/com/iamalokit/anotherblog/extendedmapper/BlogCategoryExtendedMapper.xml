@@ -25,12 +25,34 @@
 	<select id="findCategoryList" parameterType="Map"
 		resultMap="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.BaseResultMap">
 		select
-		<include refid="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.Base_Column_List" />
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.Base_Column_List" />
 		from blog_category
 		where is_deleted=0
-		order by category_rank desc,create_time desc
+		order by category_rank
+		desc,create_time desc
 		<if test="start!=null and limit!=null">
 			limit #{start},#{limit}
 		</if>
 	</select>
+
+	<select id="selectByCategoryName"
+		parameterType="java.lang.String"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.BaseResultMap">
+		select
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogCategoryMapper.Base_Column_List" />
+		from blog_category
+		where category_name =
+		#{categoryName,jdbcType=VARCHAR} AND is_deleted = 0
+	</select>
+
+	<update id="deleteBatch">
+		update blog_category
+		set is_deleted=1 where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
 </mapper>

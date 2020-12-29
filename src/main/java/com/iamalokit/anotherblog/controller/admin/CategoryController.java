@@ -47,10 +47,10 @@ public class CategoryController {
 	public Result save(@RequestParam("categoryName") String categoryName,
 			@RequestParam("categoryIcon") String categoryIcon) {
 		if (BlogStringUtil.isNullOrEmpty(categoryName)) {
-			return ResultGenerator.genFailResult("Category Name is null");
+			return ResultGenerator.genFailResult("Category Name is null or empty");
 		}
 		if (BlogStringUtil.isNullOrEmpty(categoryIcon)) {
-			return ResultGenerator.genFailResult("Category Icon is null");
+			return ResultGenerator.genFailResult("Category Icon is null or empty");
 		}
 		if (categoryService.saveCategory(categoryName, categoryIcon)) {
 			return ResultGenerator.genSuccessResult();

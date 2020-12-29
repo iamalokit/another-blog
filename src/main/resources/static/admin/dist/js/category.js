@@ -12,7 +12,7 @@ $(function () {
         rowNum: 10,
         rowList: [10, 20, 50],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'Loading Categories...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -90,7 +90,7 @@ $('#saveButton').click(function () {
             success: function (result) {
                 if (result.resultCode == 200) {
                     $('#categoryModal').modal('hide');
-                    swal("保存成功", {
+                    swal("Updated Successfully", {
                         icon: "success",
                     });
                     reload();
@@ -104,7 +104,7 @@ $('#saveButton').click(function () {
                 ;
             },
             error: function () {
-                swal("操作失败", {
+                swal("Unable to update category", {
                     icon: "error",
                 });
             }
@@ -129,8 +129,8 @@ function deleteCagegory() {
         return;
     }
     swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
+        title: "Delete",
+        text: "Are you sure you want to delete selected categories?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -143,7 +143,7 @@ function deleteCagegory() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
+                            swal("Deleted Successfully", {
                                 icon: "success",
                             });
                             $("#jqGrid").trigger("reloadGrid");

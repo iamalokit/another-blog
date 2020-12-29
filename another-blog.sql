@@ -30,6 +30,8 @@ CREATE TABLE `blog_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+select * from blog_category;
+
 DROP TABLE IF EXISTS `blog`;
 
 CREATE TABLE `blog` (
