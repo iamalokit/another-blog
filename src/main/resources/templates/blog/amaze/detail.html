@@ -112,29 +112,29 @@
         <th:block th:if="${null != commentPageResult}">
             <ul class="am-pagination">
                 <li th:class="${commentPageResult.currPage==1}?'disabled' : ''"><a
-                        th:href="@{${commentPageResult.currPage==1}?'##':'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage-1}+'#comments'}">&laquo;</a>
+                        th:href="@{${commentPageResult.currPage==1}?'##':'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage-1}+'#comments'}">&laquo;</a>
                 </li>
                 <li th:if="${commentPageResult.currPage-3 >=1}"><a
-                        th:href="@{'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage-3}+'#comments'}"
+                        th:href="@{'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage-3}+'#comments'}"
                         th:text="${commentPageResult.currPage -3}">1</a></li>
                 <li th:if="${commentPageResult.currPage-2 >=1}"><a
-                        th:href="@{'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage-2}+'#comments'}"
+                        th:href="@{'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage-2}+'#comments'}"
                         th:text="${commentPageResult.currPage -2}">1</a></li>
                 <li th:if="${commentPageResult.currPage-1 >=1}"><a
-                        th:href="@{'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage-1}+'#comments'}"
+                        th:href="@{'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage-1}+'#comments'}"
                         th:text="${commentPageResult.currPage -1}">1</a></li>
                 <li class="active"><a href="#" th:text="${commentPageResult.currPage}">1</a></li>
                 <li th:if="${commentPageResult.currPage+1 <=commentPageResult.totalPage}"><a
-                        th:href="@{'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage+1}+'#comments'}"
+                        th:href="@{'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage+1}+'#comments'}"
                         th:text="${commentPageResult.currPage +1}">1</a></li>
                 <li th:if="${commentPageResult.currPage+2 <=commentPageResult.totalPage}"><a
-                        th:href="@{'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage+2}+'#comments'}"
+                        th:href="@{'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage+2}+'#comments'}"
                         th:text="${commentPageResult.currPage +2}">1</a></li>
                 <li th:if="${commentPageResult.currPage+3 <=commentPageResult.totalPage}"><a
-                        th:href="@{'/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage+3}+'#comments'}"
+                        th:href="@{'/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage+3}+'#comments'}"
                         th:text="${commentPageResult.currPage +3}">1</a></li>
                 <li th:class="${commentPageResult.currPage==commentPageResult.totalPage}?'disabled' : ''"><a
-                        th:href="@{${commentPageResult.currPage==commentPageResult.totalPage}?'##' : '/blog/'+${blogDetailVO.blogId}+'?commentPage=' + ${commentPageResult.currPage+1}+'#comments'}">&raquo;</a>
+                        th:href="@{${commentPageResult.currPage==commentPageResult.totalPage}?'##' : '/blog/'+${blogDetailVO.id}+'?commentPage=' + ${commentPageResult.currPage+1}+'#comments'}">&raquo;</a>
                 </li>
             </ul>
         </th:block>
@@ -147,7 +147,7 @@
                 <tbody>
                 <tr>
                     <td>
-                        <input type="hidden" id="blogId" name="blogId" th:value="${blogDetailVO.blogId}"></input>
+                        <input type="hidden" id="blogId" name="blogId" th:value="${blogDetailVO.id}"></input>
                         <input type="text" name="commentator" id="commentator" placeholder="(*必填)怎么称呼你?">
                     </td>
                 </tr>

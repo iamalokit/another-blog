@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BlogDetailVO {
 
-	private Long blogId;
+	private Long id;
 
 	private String blogTitle;
 
@@ -29,12 +29,12 @@ public class BlogDetailVO {
 
 	private Date createTime;
 
-	public Long getBlogId() {
-		return blogId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBlogId(Long blogId) {
-		this.blogId = blogId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getBlogTitle() {

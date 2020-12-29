@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.iamalokit.anotherblog.dao.BlogCommentDao">
+
+	<select id="getTotalBlogComments" parameterType="Map"
+		resultType="int">
+		select count(*) from blog_comment
+		where is_deleted=0
+		<if test="blogId!=null">
+			AND blog_id = #{blogId}
+		</if>
+		<if test="commentStatus!=null">
+			AND comment_status = #{commentStatus}
+		</if>
+	</select>
+
+	<select id="findBlogCommentList" parameterType="Map"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogCommentMapper.BaseResultMap">
+		select
+		<include refid="com.iamalokit.anotherblog.mapper.BlogCommentMapper.Base_Column_List" />
+		from blog_comment
+		where is_deleted=0
+		<if test="blogId!=null">
+			AND blog_id = #{blogId}
+		</if>
+		<if test="commentStatus!=null">
+			AND comment_status = #{commentStatus}
+		</if>
+		order by id desc
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+</mapper>

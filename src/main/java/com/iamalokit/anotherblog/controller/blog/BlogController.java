@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.iamalokit.anotherblog.service.BlogService;
 import com.iamalokit.anotherblog.service.CategoryService;
 import com.iamalokit.anotherblog.service.CommentService;
 import com.iamalokit.anotherblog.service.ConfigService;
 import com.iamalokit.anotherblog.util.PageResult;
+import com.iamalokit.anotherblog.vo.BlogDetailVO;
 
 @Controller
 public class BlogController {
@@ -49,4 +51,16 @@ public class BlogController {
 		request.setAttribute("configurations", configService.getAllConfigs());
 		return "blog/" + theme + "/index";
 	}
+	
+	@GetMapping({"/blog/{blogId}", "/article/{blogId}"})
+    public String detail(HttpServletRequest request, @PathVariable("blogId") Long blogId, @RequestParam(value = "commentPage", required = false, defaultValue = "1") Integer commentPage) {
+        BlogDetailVO blogDetailVO = blogService.getBlogDetail(blogId);
+        if (blogDetailVO != null) {
+            request.setAttribute("blogDetailVO", blogDetailVO);
+            request.setAttribute("commentPageResult", commentService.getCommentPageByBlogIdAndPageNum(blogId, commentPage));
+        }
+        request.setAttribute("pageName", "Details");
+        request.setAttribute("configurations", configService.getAllConfigs());
+        return "blog/" + theme + "/detail";
+    }
 }

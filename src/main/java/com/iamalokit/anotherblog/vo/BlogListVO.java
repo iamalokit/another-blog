@@ -12,7 +12,7 @@ public class BlogListVO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long blogId;
+	private Long id;
 
 	private String blogTitle;
 
@@ -29,12 +29,12 @@ public class BlogListVO implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date createTime;
 
-	public Long getBlogId() {
-		return blogId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBlogId(Long blogId) {
-		this.blogId = blogId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getBlogTitle() {
