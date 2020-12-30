@@ -28,6 +28,7 @@ import com.iamalokit.anotherblog.util.BlogStringUtil;
 import com.iamalokit.anotherblog.util.MarkDownUtil;
 import com.iamalokit.anotherblog.util.PageQueryUtil;
 import com.iamalokit.anotherblog.util.PageResult;
+import com.iamalokit.anotherblog.util.PatternUtil;
 import com.iamalokit.anotherblog.vo.BlogDetailVO;
 import com.iamalokit.anotherblog.vo.BlogListVO;
 import com.iamalokit.anotherblog.vo.SimpleBlogListVO;
@@ -52,7 +53,7 @@ public class BlogServiceImpl implements BlogService {
 
 	@Autowired
 	private BlogTagRelationDao blogTagRelationDao;
-	
+
 	@Autowired
 	private BlogCommentDao blogCommentDao;
 
@@ -222,36 +223,50 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	private BlogDetailVO getBlogDetailVO(Blog blog) {
-        if (blog != null && blog.getBlogStatus() == 1) {
-            blog.setBlogViews(blog.getBlogViews() + 1);
-            blogMapper.updateByPrimaryKey(blog);
-            BlogDetailVO blogDetailVO = new BlogDetailVO();
-            BeanUtils.copyProperties(blog, blogDetailVO);
-            blogDetailVO.setBlogContent(MarkDownUtil.mdToHtml(blogDetailVO.getBlogContent()));
-            BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
-            if (blogCategory == null) {
-                blogCategory = new BlogCategory();
-                blogCategory.setId(new Long(0));
-                blogCategory.setCategoryName("Default");
-                blogCategory.setCategoryIcon("/admin/dist/img/category/00.png");
-            }
-            blogDetailVO.setBlogCategoryIcon(blogCategory.getCategoryIcon());
-            if (!BlogStringUtil.isNullOrEmpty(blog.getBlogTags())) {
-                List<String> tags = Arrays.asList(blog.getBlogTags().split(","));
-                blogDetailVO.setBlogTags(tags);
-            }
-            Map<String, Object> params = new HashMap<>();
-            params.put("blogId", blog.getId());
-            params.put("commentStatus", 1);
-            blogDetailVO.setCommentCount(blogCommentDao.getTotalBlogComments(params));
-            return blogDetailVO;
-        }
-        return null;
-    }
+		if (blog != null && blog.getBlogStatus() == 1) {
+			blog.setBlogViews(blog.getBlogViews() + 1);
+			blogMapper.updateByPrimaryKey(blog);
+			BlogDetailVO blogDetailVO = new BlogDetailVO();
+			BeanUtils.copyProperties(blog, blogDetailVO);
+			blogDetailVO.setBlogContent(MarkDownUtil.mdToHtml(blogDetailVO.getBlogContent()));
+			BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
+			if (blogCategory == null) {
+				blogCategory = new BlogCategory();
+				blogCategory.setId(new Long(0));
+				blogCategory.setCategoryName("Default");
+				blogCategory.setCategoryIcon("/admin/dist/img/category/00.png");
+			}
+			blogDetailVO.setBlogCategoryIcon(blogCategory.getCategoryIcon());
+			if (!BlogStringUtil.isNullOrEmpty(blog.getBlogTags())) {
+				List<String> tags = Arrays.asList(blog.getBlogTags().split(","));
+				blogDetailVO.setBlogTags(tags);
+			}
+			Map<String, Object> params = new HashMap<>();
+			params.put("blogId", blog.getId());
+			params.put("commentStatus", 1);
+			blogDetailVO.setCommentCount(blogCommentDao.getTotalBlogComments(params));
+			return blogDetailVO;
+		}
+		return null;
+	}
 
 	@Override
 	public PageResult getBlogsPageByTag(String tagName, int page) {
-		// TODO Auto-generated method stub
+		if (PatternUtil.validKeyword(tagName)) {
+			BlogTag tag = blogTagDao.selectByTagName(tagName);
+			if (tag != null && page > 0) {
+				Map<String, Object> param = new HashMap<>();
+				param.put("page", page);
+				param.put("limit", 9);
+				param.put("tagId", tag.getId());
+				PageQueryUtil pageUtil = new PageQueryUtil(param);
+				List<Blog> blogList = blogDao.getBlogsPageByTagId(pageUtil);
+				List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
+				int total = blogDao.getTotalBlogsByTagId(pageUtil);
+				PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+				return pageResult;
+			}
+		}
 		return null;
 	}
 
@@ -263,7 +278,19 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public PageResult getBlogsPageBySearch(String keyword, int page) {
-		// TODO Auto-generated method stub
+		if (page > 0 && PatternUtil.validKeyword(keyword)) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("page", page);
+			param.put("limit", 9);
+			param.put("keyword", keyword);
+			param.put("blogStatus", 1);
+			PageQueryUtil pageUtil = new PageQueryUtil(param);
+			List<Blog> blogList = blogDao.findBlogList(pageUtil);
+			List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
+			int total = blogDao.getTotalBlogs(pageUtil);
+			PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+			return pageResult;
+		}
 		return null;
 	}
 

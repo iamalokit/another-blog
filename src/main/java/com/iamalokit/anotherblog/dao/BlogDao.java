@@ -20,4 +20,8 @@ public interface BlogDao {
 	
 	int deleteBatch(Long[] ids);
 
+	List<Blog> getBlogsPageByTagId(PageQueryUtil pageUtil);
+
+	int getTotalBlogsByTagId(PageQueryUtil pageUtil);
+
 }

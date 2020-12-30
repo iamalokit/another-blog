@@ -9,32 +9,30 @@ import org.springframework.util.CollectionUtils;
 import com.iamalokit.anotherblog.dao.BlogTagDao;
 import com.iamalokit.anotherblog.dao.BlogTagRelationDao;
 import com.iamalokit.anotherblog.entity.BlogTag;
+import com.iamalokit.anotherblog.entity.BlogTagCount;
 import com.iamalokit.anotherblog.mapper.BlogTagMapper;
 import com.iamalokit.anotherblog.service.TagService;
 import com.iamalokit.anotherblog.util.PageQueryUtil;
 import com.iamalokit.anotherblog.util.PageResult;
-import com.iamalokit.anotherblog.vo.BlogTagCount;
 
 @Service
 public class TagServiceImpl implements TagService {
-	
+
 	@Autowired
 	private BlogTagMapper blogTagMapper;
-	
+
 	@Autowired
 	private BlogTagDao blogTagDao;
-	
+
 	@Autowired
 	private BlogTagRelationDao blogTagRelationDao;
-	
-	
 
 	@Override
 	public PageResult getBlogTagPage(PageQueryUtil pageUtil) {
 		List<BlogTag> tags = blogTagDao.findTagList(pageUtil);
-        int total = blogTagDao.getTotalTags(pageUtil);
-        PageResult pageResult = new PageResult(tags, total, pageUtil.getLimit(), pageUtil.getPage());
-        return pageResult;
+		int total = blogTagDao.getTotalTags(pageUtil);
+		PageResult pageResult = new PageResult(tags, total, pageUtil.getLimit(), pageUtil.getPage());
+		return pageResult;
 	}
 
 	@Override
@@ -55,17 +53,17 @@ public class TagServiceImpl implements TagService {
 
 	@Override
 	public Boolean deleteBatch(Long[] ids) {
-        List<Long> relations = blogTagRelationDao.selectDistinctTagIds(ids);
-        if (!CollectionUtils.isEmpty(relations)) {
-            return false;
-        }
-        return blogTagDao.deleteBatch(ids) > 0;
+		List<Long> relations = blogTagRelationDao.selectDistinctTagIds(ids);
+		if (!CollectionUtils.isEmpty(relations)) {
+			return false;
+		}
+		return blogTagDao.deleteBatch(ids) > 0;
 	}
 
 	@Override
 	public List<BlogTagCount> getBlogTagCountForIndex() {
-		// TODO Auto-generated method stub
-		return null;
+		List<BlogTagCount> blogTagCounts = blogTagDao.getTagCount();
+		return blogTagCounts;
 	}
 
 }

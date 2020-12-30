@@ -1,4 +1,4 @@
-package com.iamalokit.anotherblog.vo;
+package com.iamalokit.anotherblog.entity;
 
 public class BlogTagCount {
 	private Integer tagId;

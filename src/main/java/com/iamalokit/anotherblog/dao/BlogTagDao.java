@@ -3,6 +3,7 @@ package com.iamalokit.anotherblog.dao;
 import java.util.List;
 
 import com.iamalokit.anotherblog.entity.BlogTag;
+import com.iamalokit.anotherblog.entity.BlogTagCount;
 import com.iamalokit.anotherblog.util.PageQueryUtil;
 
 public interface BlogTagDao {
@@ -15,4 +16,6 @@ public interface BlogTagDao {
 	int deleteBatch(Long[] ids);
 	
 	int batchInsertBlogTag(List<BlogTag> tagList);
+	
+	List<BlogTagCount> getTagCount();
 }

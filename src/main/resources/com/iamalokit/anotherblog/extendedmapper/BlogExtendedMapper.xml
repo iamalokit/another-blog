@@ -29,7 +29,8 @@
 		select count(*) from blog
 		where is_deleted=0
 		<if test="keyword!=null">
-			AND (blog_title like CONCAT('%',#{keyword},'%' ) or blog_category_name
+			AND (blog_title like CONCAT('%',#{keyword},'%' ) or
+			blog_category_name
 			like CONCAT('%',#{keyword},'%' ))
 		</if>
 		<if test="blogStatus!=null">
@@ -63,4 +64,31 @@
 			#{id}
 		</foreach>
 	</update>
+
+	<select id="getBlogsPageByTagId" parameterType="Map"
+		resultMap="com.iamalokit.anotherblog.mapper.BlogMapper.BaseResultMap">
+		select
+		<include
+			refid="com.iamalokit.anotherblog.mapper.BlogMapper.Base_Column_List" />
+		from blog
+		where id IN (SELECT blog_id FROM blog_tag_relation WHERE
+		tag_id =
+		#{tagId})
+		AND blog_status =1 AND is_deleted=0
+		order by id desc
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+
+	<select id="getTotalBlogsByTagId" parameterType="Map"
+		resultType="int">
+		select count(*)
+		from blog
+		where id IN (SELECT blog_id
+		FROM blog_tag_relation WHERE tag_id =
+		#{tagId})
+		AND blog_status =1
+		AND is_deleted=0
+	</select>
 </mapper>
