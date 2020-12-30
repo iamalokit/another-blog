@@ -32,4 +32,21 @@
 			limit #{start},#{limit}
 		</if>
 	</select>
+	
+	<update id="deleteBatch">
+        update blog_comment
+        set is_deleted=1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    
+    <update id="checkDone">
+        update blog_comment
+        set comment_status=1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and comment_status = 0
+    </update>
 </mapper>

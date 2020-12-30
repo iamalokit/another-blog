@@ -142,43 +142,43 @@
     <th:block th:if="${blogDetailVO.enableComment==0}">
         <aside class="create-comment" id="create-comment">
             <hr>
-            <h2><i class="fa fa-pencil"></i> 添加评论</h2>
+            <h2><i class="fa fa-pencil"></i>Comments</h2>
             <table id="commentForm" class="form">
                 <tbody>
                 <tr>
                     <td>
                         <input type="hidden" id="blogId" name="blogId" th:value="${blogDetailVO.id}"></input>
-                        <input type="text" name="commentator" id="commentator" placeholder="(*必填)怎么称呼你?">
+                        <input type="text" name="commentator" id="commentator" placeholder="(*Required) Your name">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="email" name="email" id="email" placeholder="(*必填)你的联系邮箱">
+                        <input type="email" name="email" id="email" placeholder="(*Required) Your contact email">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="websiteUrl" id="websiteUrl" placeholder="你的网站地址(可不填)">
+                        <input type="text" name="websiteUrl" id="websiteUrl" placeholder="Your website address (*optional)">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <input style="width:50%" type="text" name="verifyCode" id="verifyCode"
-                               placeholder="(*必填)请输入验证码">&nbsp;&nbsp;
-                        <img alt="单击图片刷新！" class="pointer" style="margin-top: 15px; border-radius: 25px;"
+                               placeholder="(*Required) Please enter verification code">&nbsp;&nbsp;
+                        <img alt="default" class="pointer" style="margin-top: 15px; border-radius: 25px;"
                              th:src="@{/common/kaptcha}"
                              onclick="this.src='/common/kaptcha?d='+new Date()*1">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <textarea rows="5" name="commentBody" id="commentBody" placeholder="(*必填)请输入你的评论"></textarea>
+                        <textarea rows="5" name="commentBody" id="commentBody" placeholder="Enter comment"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
                         <button id="commentSubmit" type="submit"
-                                class="submit am-btn am-btn-primary">提交
+                                class="submit am-btn am-btn-primary">Submit
                         </button>
                     </td>
                 </tr>

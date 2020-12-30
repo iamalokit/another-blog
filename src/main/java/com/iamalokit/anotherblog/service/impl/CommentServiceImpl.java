@@ -1,5 +1,6 @@
 package com.iamalokit.anotherblog.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,40 +22,46 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private BlogCommentDao blogCommentDao;
 
+	@Autowired
+	private BlogCommentMapper blogCommentMapper;
+
 	@Override
 	public Boolean addComment(BlogComment blogComment) {
-		// TODO Auto-generated method stub
-		return null;
+		return blogCommentMapper.insertSelective(blogComment) > 0;
 	}
 
 	@Override
 	public PageResult getCommentsPage(PageQueryUtil pageUtil) {
-		// TODO Auto-generated method stub
-		return null;
+		List<BlogComment> comments = blogCommentDao.findBlogCommentList(pageUtil);
+		int total = blogCommentDao.getTotalBlogComments(pageUtil);
+		PageResult pageResult = new PageResult(comments, total, pageUtil.getLimit(), pageUtil.getPage());
+		return pageResult;
 	}
 
 	@Override
 	public int getTotalComments() {
-		// TODO Auto-generated method stub
-		return 0;
+		return blogCommentDao.getTotalBlogComments(null);
 	}
 
 	@Override
 	public Boolean checkDone(Long[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		return blogCommentDao.checkDone(ids) > 0;
 	}
 
 	@Override
 	public Boolean deleteBatch(Long[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		return blogCommentDao.deleteBatch(ids) > 0;
 	}
 
 	@Override
 	public Boolean reply(Long commentId, String replyBody) {
-		// TODO Auto-generated method stub
-		return null;
+		BlogComment blogComment = blogCommentMapper.selectByPrimaryKey(commentId);
+		if (blogComment != null && blogComment.getCommentStatus().intValue() == 1) {
+			blogComment.setReplyBody(replyBody);
+			blogComment.setReplyCreateTime(new Date());
+			return blogCommentMapper.updateByPrimaryKeySelective(blogComment) > 0;
+		}
+		return false;
 	}
 
 	@Override

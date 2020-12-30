@@ -1,11 +1,9 @@
 $(function () {
-    //修改个人信息
     $('#updateUserNameButton').click(function () {
         $("#updateUserNameButton").attr("disabled",true);
         var userName = $('#loginUserName').val();
         var nickName = $('#nickName').val();
         if (validUserNameForUpdate(userName, nickName)) {
-            //ajax提交数据
             var params = $("#userNameForm").serialize();
             $.ajax({
                 type: "POST",
@@ -24,7 +22,6 @@ $(function () {
             $("#updateUserNameButton").prop("disabled",false);
         }
     });
-    //修改密码
     $('#updatePasswordButton').click(function () {
         $("#updatePasswordButton").attr("disabled",true);
         var originalPassword = $('#originalPassword').val();
@@ -52,9 +49,7 @@ $(function () {
     });
 })
 
-/**
- * 名称验证
- */
+
 function validUserNameForUpdate(userName, nickName) {
     if (isNull(userName) || userName.trim().length < 1) {
         $('#updateUserName-info').css("display", "block");
@@ -79,9 +74,6 @@ function validUserNameForUpdate(userName, nickName) {
     return true;
 }
 
-/**
- * 密码验证
- */
 function validPasswordForUpdate(originalPassword, newPassword) {
     if (isNull(originalPassword) || originalPassword.trim().length < 1) {
         $('#updatePassword-info').css("display", "block");

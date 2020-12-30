@@ -11,9 +11,7 @@
     }
 </style>
 <div class="wrapper">
-    <!-- 引入页面头header-fragment -->
     <div th:replace="admin/header::header-nav"></div>
-    <!-- 引入工具栏sidebar-fragment -->
     <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -27,23 +25,21 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">评论管理</h3>
+                        <h3 class="card-title">Comments</h3>
                     </div> <!-- /.card-body -->
                     <div class="card-body">
                         <div class="grid-btn">
                             <button class="btn btn-success" onclick="checkDoneComments()"><i
-                                    class="fa fa-check"></i>&nbsp;批量审核
+                                    class="fa fa-check"></i>&nbsp;Review
                             </button>
                             <button class="btn btn-info" onclick="reply()"><i
-                                    class="fa fa-reply"></i>&nbsp;回复
+                                    class="fa fa-reply"></i>&nbsp;Reply
                             </button>
                             <button class="btn btn-danger" onclick="deleteComments()"><i
-                                    class="fa fa-trash-o"></i>&nbsp;批量删除
+                                    class="fa fa-trash-o"></i>&nbsp;Delete
                             </button>
                         </div>
-                        <!-- JqGrid必要DOM,用于创建表格展示列表数据 -->
                         <table id="jqGrid" class="table table-bordered"></table>
-                        <!-- JqGrid必要DOM,分页信息区域 -->
                         <div id="jqGridPager"></div>
                     </div><!-- /.card-body -->
                 </div>
@@ -58,21 +54,21 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h6 class="modal-title" id="replyModalLabel">评论回复</h6>
+                            <h6 class="modal-title" id="replyModalLabel">Reply</h6>
                         </div>
                         <div class="modal-body">
                             <form id="replyForm">
                                 <input type="hidden" class="form-control" id="categoryId" name="categoryId">
                                 <div class="form-group">
-                                    <label for="replyBody" class="control-label">回复内容:</label>
+                                    <label for="replyBody" class="control-label">Comment:</label>
                                     <textarea type="text" class="form-control" id="replyBody" name="replyBody"
-                                              placeholder="请输入回复内容" required="true"></textarea>
+                                              placeholder="Write a Reply" required="true"></textarea>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">Save</button>
                         </div>
                     </div>
                 </div>
@@ -81,7 +77,6 @@
         </div>
     </div>
     <!-- /.content-wrapper -->
-    <!-- 引入页脚footer-fragment -->
     <div th:replace="admin/footer::footer-fragment"></div>
 </div>
 <!-- jQuery -->

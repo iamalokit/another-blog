@@ -51,7 +51,7 @@ public class CommentController {
 		if (commentService.checkDone(ids)) {
 			return ResultGenerator.genSuccessResult();
 		} else {
-			return ResultGenerator.genFailResult("Unable to check done for the comments");
+			return ResultGenerator.genFailResult("Comment is already verified");
 		}
 	}
 	

@@ -9,4 +9,8 @@ public interface BlogCommentDao {
 	List<BlogComment> findBlogCommentList(Map<String, Object> map);
 
 	int getTotalBlogComments(Map<String, Object> map);
+
+	int deleteBatch(Long[] ids);
+	
+	int checkDone(Long[] ids);
 }

@@ -52,6 +52,7 @@ CREATE TABLE `blog` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+select * from blog;
 
 DROP TABLE IF EXISTS `blog_config`;
 
@@ -81,6 +82,8 @@ CREATE TABLE `blog_comment` (
   `is_deleted` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+select * from blog_comment;
 
 DROP TABLE IF EXISTS `blog_link`;
 

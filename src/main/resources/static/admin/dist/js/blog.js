@@ -60,7 +60,7 @@ $(function () {
 function search() {
     var keyword = $('#keyword').val();
     if (!validLength(keyword, 20)) {
-        swal("搜索字段长度过大!", {
+        swal("Search input is very large. Try with smaller keywords", {
             icon: "error",
         });
         return false;

@@ -15,7 +15,7 @@ $(function () {
         rowNum: 10,
         rowList: [10, 20, 50],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'Loading Comments...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -41,18 +41,16 @@ $(function () {
     });
     function statusFormatter(cellvalue) {
         if (cellvalue == 0) {
-            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 80%;\">待审核</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 80%;\">Pending</button>";
         }
         else if (cellvalue == 1) {
-            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 80%;\">已审核</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 80%;\">Verified</button>";
         }
     }
 
 });
 
-/**
- * jqGrid重新加载
- */
+
 function reload() {
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
     $("#jqGrid").jqGrid('setGridParam', {
@@ -60,9 +58,7 @@ function reload() {
     }).trigger("reloadGrid");
 }
 
-/**
- * 批量审核
- */
+
 function checkDoneComments() {
     var ids = getSelectedRows();
     if (ids == null) {
@@ -99,17 +95,15 @@ function checkDoneComments() {
     );
 }
 
-/**
- * 批量删除
- */
+
 function deleteComments() {
     var ids = getSelectedRows();
     if (ids == null) {
         return;
     }
     swal({
-        title: "确认弹框",
-        text: "确认删除这些评论吗?",
+        title: "Delete",
+        text: "Are you sure you want to delete selected comments?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -122,7 +116,7 @@ function deleteComments() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
+                            swal("Deleted Successfully", {
                                 icon: "success",
                             });
                             $("#jqGrid").trigger("reloadGrid");
@@ -146,7 +140,7 @@ function reply() {
     }
     var rowData = $("#jqGrid").jqGrid('getRowData', id);
     console.log(rowData);
-    if (rowData.commentStatus.indexOf('待审核') > -1) {
+    if (rowData.commentStatus.indexOf('Pending') > -1) {
         swal("请先审核该评论再进行回复!", {
             icon: "warning",
         });
@@ -156,11 +150,10 @@ function reply() {
     $('#replyModal').modal('show');
 }
 
-//绑定modal上的保存按钮
 $('#saveButton').click(function () {
     var replyBody = $("#replyBody").val();
     if (!validCN_ENString2_100(replyBody)) {
-        swal("请输入符合规范的回复信息!", {
+        swal("Comments are limited to 200 characters!", {
             icon: "warning",
         });
         return;
@@ -169,13 +162,13 @@ $('#saveButton').click(function () {
         var id = getSelectedRow();
         var params = {"commentId": id, "replyBody": replyBody}
         $.ajax({
-            type: 'POST',//方法类型
+            type: 'POST',
             url: url,
             data: params,
             success: function (result) {
                 if (result.resultCode == 200) {
                     $('#replyModal').modal('hide');
-                    swal("回复成功", {
+                    swal("Saved Successfully", {
                         icon: "success",
                     });
                     reload();
@@ -189,7 +182,7 @@ $('#saveButton').click(function () {
                 ;
             },
             error: function () {
-                swal("操作失败", {
+                swal("Unable to save reply", {
                     icon: "error",
                 });
             }
