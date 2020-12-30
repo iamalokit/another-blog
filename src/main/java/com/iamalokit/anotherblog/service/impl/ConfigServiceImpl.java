@@ -20,18 +20,18 @@ public class ConfigServiceImpl implements ConfigService {
 	private BlogConfigMapper configMapper;
 
 	public static final String WEBSITE_NAME = "personal blog";
-	public static final String WEBSITE_DESCRIPTION = "personal blog是SpringBoot2+Thymeleaf+Mybatis建造的个人博客网站.SpringBoot实战博客源码.个人博客搭建";
+	public static final String WEBSITE_DESCRIPTION = "Springboot5 + Mybatis + Mybatis generator";
 	public static final String WEBSITE_LOGO = "/admin/dist/img/logo2.png";
 	public static final String WEBSITE_ICON = "/admin/dist/img/favicon.png";
 
 	public static final String YOUR_AVATAR = "/admin/dist/img/13.png";
-	public static final String YOUR_EMAIL = "2449207463@qq.com";
-	public static final String YOUR_NAME = "十三";
+	public static final String YOUR_EMAIL = "iamalokit@gmail.com";
+	public static final String YOUR_NAME = "Alokit";
 
-	public static final String FOOTER_ABOUT = "your personal blog. have fun.";
-	public static final String FOOTER_ICP = "浙ICP备 xxxxxx-x号";
-	public static final String FOOTER_COPYRIGHT = "@2018 十三";
-	public static final String FOOTER_POWEREDBY = "personal blog";
+	public static final String FOOTER_ABOUT = "My Personal Blog";
+	public static final String FOOTER_ICP = "Version -1";
+	public static final String FOOTER_COPYRIGHT = "@2020";
+	public static final String FOOTER_POWEREDBY = "webforyou";
 	public static final String FOOTER_POWEREDBY_URL = "##";
 	@Override
 	public int updateConfig(String configName, String configValue) {
