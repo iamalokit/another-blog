@@ -64,10 +64,10 @@ public class CategoryController {
 	public Result update(@RequestParam("categoryId") Long categoryId, @RequestParam("categoryName") String categoryName,
 			@RequestParam("categoryIcon") String categoryIcon) {
 		if (BlogStringUtil.isNullOrEmpty(categoryName)) {
-			return ResultGenerator.genFailResult("请输入分类名称！");
+			return ResultGenerator.genFailResult("categoryName is empty or null");
 		}
 		if (BlogStringUtil.isNullOrEmpty(categoryIcon)) {
-			return ResultGenerator.genFailResult("请选择分类图标！");
+			return ResultGenerator.genFailResult("categoryIcon is empty or null");
 		}
 		if (categoryService.updateCategory(categoryId, categoryName, categoryIcon)) {
 			return ResultGenerator.genSuccessResult();

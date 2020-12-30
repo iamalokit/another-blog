@@ -9,7 +9,7 @@ import com.iamalokit.anotherblog.util.PageQueryUtil;
 
 public interface BlogDao {
 
-	int updateBlogCategorys(@Param("categoryName") String categoryName, @Param("categoryId") Long categoryId,
+	int updateBlogCategories(@Param("categoryName") String categoryName, @Param("categoryId") Long categoryId,
 			@Param("ids") Long[] ids);
 	
 	List<Blog> findBlogList(PageQueryUtil pageUtil);
@@ -23,5 +23,6 @@ public interface BlogDao {
 	List<Blog> getBlogsPageByTagId(PageQueryUtil pageUtil);
 
 	int getTotalBlogsByTagId(PageQueryUtil pageUtil);
+
 
 }

@@ -58,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
 		if (blogCategory != null) {
 			blogCategory.setCategoryIcon(categoryIcon);
 			blogCategory.setCategoryName(categoryName);
-			blogDao.updateBlogCategorys(categoryName, blogCategory.getId(), new Long[] { id });
+			blogDao.updateBlogCategories(categoryName, blogCategory.getId(), new Long[] { id });
 			return blogCategoryMapper.updateByPrimaryKeySelective(blogCategory) > 0;
 		}
 		return false;
@@ -70,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
 		if (ids.length < 1) {
 			return false;
 		}
-		blogDao.updateBlogCategorys("Default", categoryId, ids);
+		blogDao.updateBlogCategories("Default", categoryId, ids);
 		return blogCategoryDao.deleteBatch(ids) > 0;
 	}
 

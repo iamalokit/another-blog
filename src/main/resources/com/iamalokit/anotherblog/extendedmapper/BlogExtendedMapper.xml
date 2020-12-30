@@ -86,9 +86,23 @@
 		select count(*)
 		from blog
 		where id IN (SELECT blog_id
-		FROM blog_tag_relation WHERE tag_id =
+		FROM
+		blog_tag_relation WHERE tag_id =
 		#{tagId})
 		AND blog_status =1
-		AND is_deleted=0
+		AND
+		is_deleted=0
 	</select>
+
+	<update id="updateBlogCategories">
+		update blog
+		set blog_category_id = #{categoryId,jdbcType=INTEGER},
+		blog_category_name = #{categoryName,jdbcType=VARCHAR}
+		where blog_category_id in
+		<foreach item="id" collection="ids" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+		and is_deleted =0
+	</update>
 </mapper>

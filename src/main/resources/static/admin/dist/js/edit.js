@@ -3,7 +3,7 @@ var blogEditor;
 $('#blogTags').tagsInput({
     width: '100%',
     height: '38px',
-    defaultText: '文章标签'
+    defaultText: 'Tags'
 });
 
 //Initialize Select2 Elements
@@ -16,15 +16,13 @@ $(function () {
         syncScrolling: "single",
         path: "/admin/plugins/editormd/lib/",
         toolbarModes: 'full',
-        /**图片上传配置*/
         imageUpload: true,
-        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"], //图片上传格式
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL: "/admin/blogs/md/uploadfile",
-        onload: function (obj) { //上传成功之后的回调
+        onload: function (obj) { 
         }
     });
 
-    // 编辑器粘贴上传
     document.getElementById("blog-editormd").addEventListener("paste", function (e) {
         var clipboardData = e.clipboardData;
         if (clipboardData) {
@@ -88,49 +86,49 @@ $('#confirmButton').click(function () {
     var blogTags = $('#blogTags').val();
     var blogContent = blogEditor.getMarkdown();
     if (isNull(blogTitle)) {
-        swal("请输入文章标题", {
+        swal("Please enter the title of article", {
             icon: "error",
         });
         return;
     }
     if (!validLength(blogTitle, 150)) {
-        swal("标题过长", {
+        swal("Blog Title is limited to 150 characters.", {
             icon: "error",
         });
         return;
     }
     if (!validLength(blogSubUrl, 150)) {
-        swal("路径过长", {
+        swal("Sub-url is limited to 150 characters", {
             icon: "error",
         });
         return;
     }
     if (isNull(blogCategoryId)) {
-        swal("请选择文章分类", {
+        swal("Please select blog category", {
             icon: "error",
         });
         return;
     }
     if (isNull(blogTags)) {
-        swal("请输入文章标签", {
+        swal("Please enter article tags", {
             icon: "error",
         });
         return;
     }
     if (!validLength(blogTags, 150)) {
-        swal("标签过长", {
+        swal("Article tags are limited to 150 characters", {
             icon: "error",
         });
         return;
     }
     if (isNull(blogContent)) {
-        swal("请输入文章内容", {
+        swal("Please enter the content for the article", {
             icon: "error",
         });
         return;
     }
     if (!validLength(blogTags, 100000)) {
-        swal("文章内容过长", {
+        swal("Article Tags are limited to 100000 characters", {
             icon: "error",
         });
         return;
@@ -149,7 +147,7 @@ $('#saveButton').click(function () {
     var blogStatus = $("input[name='blogStatus']:checked").val();
     var enableComment = $("input[name='enableComment']:checked").val();
     if (isNull(blogCoverImage) || blogCoverImage.indexOf('img-upload') != -1) {
-        swal("封面图片不能为空", {
+        swal("Please select the cover image for the article.", {
             icon: "error",
         });
         return;
@@ -178,7 +176,7 @@ $('#saveButton').click(function () {
     }
     console.log(data);
     $.ajax({
-        type: 'POST',//方法类型
+        type: 'POST',
         url: url,
         data: data,
         success: function (result) {
@@ -216,9 +214,7 @@ $('#cancelButton').click(function () {
     window.location.href = "/admin/blogs";
 });
 
-/**
- * 随机封面功能
- */
+
 $('#randomCoverImage').click(function () {
     var rand = parseInt(Math.random() * 40 + 1);
     $("#blogCoverImage").attr("src", '/admin/dist/img/rand/' + rand + ".jpg");
