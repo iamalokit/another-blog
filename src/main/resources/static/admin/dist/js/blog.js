@@ -5,6 +5,7 @@ $(function () {
         colModel: [
             {label: 'id', name: 'blogId', index: 'blogId', width: 50, key: true, hidden: true},
             {label: 'Title', name: 'blogTitle', index: 'blogTitle', width: 140},
+            {label: 'Short Description', name: 'blogShortDesc', index: 'blogShortDesc', width: 140},
             {label: 'Cover Image', name: 'blogCoverImage', index: 'blogCoverImage', width: 120, formatter: coverImageFormatter},
             {label: 'Views', name: 'blogViews', index: 'blogViews', width: 60},
             {label: 'Status', name: 'blogStatus', index: 'blogStatus', width: 60, formatter: statusFormatter},

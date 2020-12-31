@@ -10,6 +10,8 @@ public class Blog implements Serializable {
 
     private String blogSubUrl;
 
+    private String blogShortDesc;
+
     private String blogCoverImage;
 
     private Long blogCategoryId;
@@ -56,6 +58,14 @@ public class Blog implements Serializable {
 
     public void setBlogSubUrl(String blogSubUrl) {
         this.blogSubUrl = blogSubUrl == null ? null : blogSubUrl.trim();
+    }
+
+    public String getBlogShortDesc() {
+        return blogShortDesc;
+    }
+
+    public void setBlogShortDesc(String blogShortDesc) {
+        this.blogShortDesc = blogShortDesc == null ? null : blogShortDesc.trim();
     }
 
     public String getBlogCoverImage() {
@@ -155,6 +165,7 @@ public class Blog implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", blogTitle=").append(blogTitle);
         sb.append(", blogSubUrl=").append(blogSubUrl);
+        sb.append(", blogShortDesc=").append(blogShortDesc);
         sb.append(", blogCoverImage=").append(blogCoverImage);
         sb.append(", blogCategoryId=").append(blogCategoryId);
         sb.append(", blogCategoryName=").append(blogCategoryName);

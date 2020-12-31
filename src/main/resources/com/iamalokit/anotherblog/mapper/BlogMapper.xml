@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
     <result column="blog_sub_url" jdbcType="VARCHAR" property="blogSubUrl" />
+    <result column="blog_short_desc" jdbcType="VARCHAR" property="blogShortDesc" />
     <result column="blog_cover_image" jdbcType="VARCHAR" property="blogCoverImage" />
     <result column="blog_category_id" jdbcType="BIGINT" property="blogCategoryId" />
     <result column="blog_category_name" jdbcType="VARCHAR" property="blogCategoryName" />
@@ -78,8 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, blog_title, blog_sub_url, blog_cover_image, blog_category_id, blog_category_name, 
-    blog_tags, blog_status, blog_views, enable_comment, is_deleted, create_time, update_time
+    id, blog_title, blog_sub_url, blog_short_desc, blog_cover_image, blog_category_id, 
+    blog_category_name, blog_tags, blog_status, blog_views, enable_comment, is_deleted, 
+    create_time, update_time
   </sql>
   <sql id="Blob_Column_List">
     blog_content
@@ -136,16 +138,16 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into blog (blog_title, blog_sub_url, blog_cover_image, 
-      blog_category_id, blog_category_name, blog_tags, 
-      blog_status, blog_views, enable_comment, 
-      is_deleted, create_time, update_time, 
-      blog_content)
-    values (#{blogTitle,jdbcType=VARCHAR}, #{blogSubUrl,jdbcType=VARCHAR}, #{blogCoverImage,jdbcType=VARCHAR}, 
-      #{blogCategoryId,jdbcType=BIGINT}, #{blogCategoryName,jdbcType=VARCHAR}, #{blogTags,jdbcType=VARCHAR}, 
-      #{blogStatus,jdbcType=TINYINT}, #{blogViews,jdbcType=BIGINT}, #{enableComment,jdbcType=TINYINT}, 
-      #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{blogContent,jdbcType=LONGVARCHAR})
+    insert into blog (blog_title, blog_sub_url, blog_short_desc, 
+      blog_cover_image, blog_category_id, blog_category_name, 
+      blog_tags, blog_status, blog_views, 
+      enable_comment, is_deleted, create_time, 
+      update_time, blog_content)
+    values (#{blogTitle,jdbcType=VARCHAR}, #{blogSubUrl,jdbcType=VARCHAR}, #{blogShortDesc,jdbcType=VARCHAR}, 
+      #{blogCoverImage,jdbcType=VARCHAR}, #{blogCategoryId,jdbcType=BIGINT}, #{blogCategoryName,jdbcType=VARCHAR}, 
+      #{blogTags,jdbcType=VARCHAR}, #{blogStatus,jdbcType=TINYINT}, #{blogViews,jdbcType=BIGINT}, 
+      #{enableComment,jdbcType=TINYINT}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{blogContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.iamalokit.anotherblog.entity.Blog">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -158,6 +160,9 @@
       </if>
       <if test="blogSubUrl != null">
         blog_sub_url,
+      </if>
+      <if test="blogShortDesc != null">
+        blog_short_desc,
       </if>
       <if test="blogCoverImage != null">
         blog_cover_image,
@@ -199,6 +204,9 @@
       </if>
       <if test="blogSubUrl != null">
         #{blogSubUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="blogShortDesc != null">
+        #{blogShortDesc,jdbcType=VARCHAR},
       </if>
       <if test="blogCoverImage != null">
         #{blogCoverImage,jdbcType=VARCHAR},
@@ -253,6 +261,9 @@
       <if test="record.blogSubUrl != null">
         blog_sub_url = #{record.blogSubUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.blogShortDesc != null">
+        blog_short_desc = #{record.blogShortDesc,jdbcType=VARCHAR},
+      </if>
       <if test="record.blogCoverImage != null">
         blog_cover_image = #{record.blogCoverImage,jdbcType=VARCHAR},
       </if>
@@ -296,6 +307,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       blog_title = #{record.blogTitle,jdbcType=VARCHAR},
       blog_sub_url = #{record.blogSubUrl,jdbcType=VARCHAR},
+      blog_short_desc = #{record.blogShortDesc,jdbcType=VARCHAR},
       blog_cover_image = #{record.blogCoverImage,jdbcType=VARCHAR},
       blog_category_id = #{record.blogCategoryId,jdbcType=BIGINT},
       blog_category_name = #{record.blogCategoryName,jdbcType=VARCHAR},
@@ -316,6 +328,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       blog_title = #{record.blogTitle,jdbcType=VARCHAR},
       blog_sub_url = #{record.blogSubUrl,jdbcType=VARCHAR},
+      blog_short_desc = #{record.blogShortDesc,jdbcType=VARCHAR},
       blog_cover_image = #{record.blogCoverImage,jdbcType=VARCHAR},
       blog_category_id = #{record.blogCategoryId,jdbcType=BIGINT},
       blog_category_name = #{record.blogCategoryName,jdbcType=VARCHAR},
@@ -338,6 +351,9 @@
       </if>
       <if test="blogSubUrl != null">
         blog_sub_url = #{blogSubUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="blogShortDesc != null">
+        blog_short_desc = #{blogShortDesc,jdbcType=VARCHAR},
       </if>
       <if test="blogCoverImage != null">
         blog_cover_image = #{blogCoverImage,jdbcType=VARCHAR},
@@ -379,6 +395,7 @@
     update blog
     set blog_title = #{blogTitle,jdbcType=VARCHAR},
       blog_sub_url = #{blogSubUrl,jdbcType=VARCHAR},
+      blog_short_desc = #{blogShortDesc,jdbcType=VARCHAR},
       blog_cover_image = #{blogCoverImage,jdbcType=VARCHAR},
       blog_category_id = #{blogCategoryId,jdbcType=BIGINT},
       blog_category_name = #{blogCategoryName,jdbcType=VARCHAR},
@@ -396,6 +413,7 @@
     update blog
     set blog_title = #{blogTitle,jdbcType=VARCHAR},
       blog_sub_url = #{blogSubUrl,jdbcType=VARCHAR},
+      blog_short_desc = #{blogShortDesc,jdbcType=VARCHAR},
       blog_cover_image = #{blogCoverImage,jdbcType=VARCHAR},
       blog_category_id = #{blogCategoryId,jdbcType=BIGINT},
       blog_category_name = #{blogCategoryName,jdbcType=VARCHAR},

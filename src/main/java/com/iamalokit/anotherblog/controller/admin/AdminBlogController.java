@@ -83,6 +83,7 @@ public class AdminBlogController {
 	@PostMapping("/blogs/save")
 	@ResponseBody
 	public Result save(@RequestParam("blogTitle") String blogTitle,
+			@RequestParam("blogShortDesc") String blogShortDesc,
 			@RequestParam(name = "blogSubUrl", required = false) String blogSubUrl,
 			@RequestParam("blogCategoryId") Long blogCategoryId, @RequestParam("blogTags") String blogTags,
 			@RequestParam("blogContent") String blogContent, @RequestParam("blogCoverImage") String blogCoverImage,
@@ -92,6 +93,12 @@ public class AdminBlogController {
 		}
 		if (blogTitle.trim().length() > 150) {
 			return ResultGenerator.genFailResult("blogTitle greater than 150 characters");
+		}
+		if (BlogStringUtil.isNullOrEmpty(blogShortDesc)) {
+			return ResultGenerator.genFailResult("blogShortDesc is null or empty");
+		}
+		if (blogShortDesc.trim().length() > 150) {
+			return ResultGenerator.genFailResult("blogShortDesc greater than 150 characters");
 		}
 		if (BlogStringUtil.isNullOrEmpty(blogTags)) {
 			return ResultGenerator.genFailResult("blogTags is null or empty");
@@ -119,6 +126,7 @@ public class AdminBlogController {
 		blog.setBlogContent(blogContent);
 		blog.setBlogCoverImage(blogCoverImage);
 		blog.setBlogStatus(blogStatus);
+		blog.setBlogShortDesc(blogShortDesc);
 		blog.setEnableComment(enableComment);
 		String saveBlogResult = blogService.saveBlog(blog);
 		if ("success".equals(saveBlogResult)) {
@@ -207,18 +215,17 @@ public class AdminBlogController {
 			response.getWriter().write("{\"success\":0}");
 		}
 	}
-	
-	
+
 	@PostMapping("/blogs/delete")
-    @ResponseBody
-    public Result delete(@RequestBody Long[] ids) {
-        if (ids.length < 1) {
-            return ResultGenerator.genFailResult("No blogs to delete");
-        }
-        if (blogService.deleteBatch(ids)) {
-            return ResultGenerator.genSuccessResult();
-        } else {
-            return ResultGenerator.genFailResult("Unable to delete blogs");
-        }
-    }
+	@ResponseBody
+	public Result delete(@RequestBody Long[] ids) {
+		if (ids.length < 1) {
+			return ResultGenerator.genFailResult("No blogs to delete");
+		}
+		if (blogService.deleteBatch(ids)) {
+			return ResultGenerator.genSuccessResult();
+		} else {
+			return ResultGenerator.genFailResult("Unable to delete blogs");
+		}
+	}
 }

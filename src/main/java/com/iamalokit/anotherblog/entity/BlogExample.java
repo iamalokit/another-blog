@@ -305,6 +305,76 @@ public class BlogExample {
             return (Criteria) this;
         }
 
+        public Criteria andBlogShortDescIsNull() {
+            addCriterion("blog_short_desc is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescIsNotNull() {
+            addCriterion("blog_short_desc is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescEqualTo(String value) {
+            addCriterion("blog_short_desc =", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescNotEqualTo(String value) {
+            addCriterion("blog_short_desc <>", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescGreaterThan(String value) {
+            addCriterion("blog_short_desc >", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescGreaterThanOrEqualTo(String value) {
+            addCriterion("blog_short_desc >=", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescLessThan(String value) {
+            addCriterion("blog_short_desc <", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescLessThanOrEqualTo(String value) {
+            addCriterion("blog_short_desc <=", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescLike(String value) {
+            addCriterion("blog_short_desc like", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescNotLike(String value) {
+            addCriterion("blog_short_desc not like", value, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescIn(List<String> values) {
+            addCriterion("blog_short_desc in", values, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescNotIn(List<String> values) {
+            addCriterion("blog_short_desc not in", values, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescBetween(String value1, String value2) {
+            addCriterion("blog_short_desc between", value1, value2, "blogShortDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogShortDescNotBetween(String value1, String value2) {
+            addCriterion("blog_short_desc not between", value1, value2, "blogShortDesc");
+            return (Criteria) this;
+        }
+
         public Criteria andBlogCoverImageIsNull() {
             addCriterion("blog_cover_image is null");
             return (Criteria) this;

@@ -38,6 +38,7 @@ CREATE TABLE `blog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `blog_title` varchar(200) NOT NULL ,
   `blog_sub_url` varchar(200) NOT NULL,
+  `blog_short_desc` varchar(200) NOT NULL,
   `blog_cover_image` varchar(200) NOT NULL,
   `blog_content` mediumtext NOT NULL,
   `blog_category_id` bigint(20) NOT NULL,

@@ -139,6 +139,7 @@ $('#confirmButton').click(function () {
 $('#saveButton').click(function () {
     var blogId = $('#blogId').val();
     var blogTitle = $('#blogName').val();
+    var blogShortDesc = $('#blogShortDesc').val();
     var blogSubUrl = $('#blogSubUrl').val();
     var blogCategoryId = $('#blogCategoryId').val();
     var blogTags = $('#blogTags').val();
@@ -153,18 +154,19 @@ $('#saveButton').click(function () {
         return;
     }
     var url = '/admin/blogs/save';
-    var swlMessage = '保存成功';
+    var swlMessage = 'Saved Successfully';
     var data = {
-        "blogTitle": blogTitle, "blogSubUrl": blogSubUrl, "blogCategoryId": blogCategoryId,
+        "blogTitle": blogTitle, "blogShortDesc": blogShortDesc,"blogSubUrl": blogSubUrl, "blogCategoryId": blogCategoryId,
         "blogTags": blogTags, "blogContent": blogContent, "blogCoverImage": blogCoverImage, "blogStatus": blogStatus,
         "enableComment": enableComment
     };
     if (blogId > 0) {
         url = '/admin/blogs/update';
-        swlMessage = '修改成功';
+        swlMessage = 'Successfully modified';
         data = {
             "blogId": blogId,
             "blogTitle": blogTitle,
+            "blogShortDesc": blogShortDesc,
             "blogSubUrl": blogSubUrl,
             "blogCategoryId": blogCategoryId,
             "blogTags": blogTags,
@@ -187,7 +189,7 @@ $('#saveButton').click(function () {
                     type: 'success',
                     showCancelButton: false,
                     confirmButtonColor: '#3085d6',
-                    confirmButtonText: '返回博客列表',
+                    confirmButtonText: 'Back to article list',
                     confirmButtonClass: 'btn btn-success',
                     buttonsStyling: false
                 }).then(function () {
@@ -203,7 +205,7 @@ $('#saveButton').click(function () {
             ;
         },
         error: function () {
-            swal("操作失败", {
+            swal("Operation failed", {
                 icon: "error",
             });
         }
