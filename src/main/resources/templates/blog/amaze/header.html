@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head-fragment">
 <meta charset="utf-8">
-<title th:text="|${configurations.get('websiteName')} - ${pageName}|">主页</title>
+<title th:text="|${configurations.get('websiteName')} - ${pageName}|"></title>
 <meta name="description"
 	th:content="${configurations.get('websiteDescription')}">
 <link rel="shortcut icon"
@@ -52,8 +52,9 @@
 	</div>
 	<!-- /.container -->
 </nav>
-<header th:fragment="header-fragment" class="intro-header"
-	th:style="'background-image:url(' + @{/blog/amaze/images/header.jpg} + ');'">
+<!-- <header th:fragment="header-fragment" class="intro-header" -->
+<!-- 	th:style="'background-image:url(' + @{/blog/amaze/images/header.jpg} + ');'"> -->
+<header th:fragment="header-fragment" class="intro-header">	
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">

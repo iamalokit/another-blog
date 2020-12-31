@@ -2246,13 +2246,14 @@
  
  .intro-header {
    background: no-repeat center center;
-   background-color: #808080;
+   background-color: #000000;
    background-attachment: scroll;
    -webkit-background-size: cover;
    -moz-background-size: cover;
    background-size: cover;
    -o-background-size: cover;
    margin-bottom: 30px;
+   height: 60px;
  }
  
  .intro-header .site-heading,
@@ -3240,13 +3241,14 @@
  
  .intro-header {
    background: no-repeat center center;
-   background-color: #cccccc;
+   background-color: #000000;
    background-attachment: scroll;
    -webkit-background-size: cover;
    -moz-background-size: cover;
    background-size: cover;
    -o-background-size: cover;
    margin-bottom: 0px;
+   height: 60px
    /* 0 on mobile, modify by Hux */
  }
  
@@ -4632,4 +4634,16 @@ aside.comments .comment header .meta {
     color: #9199a1;
     line-height: 18px;
     display: inline-block;
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 75%;
+}
+
+.right {
+  width: 25%;
 }
